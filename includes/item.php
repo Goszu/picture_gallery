@@ -5,9 +5,10 @@ require_once(LIB_PATH.DS.'database.php');
 class Item {
 
 	protected static $table_name="items";
-	protected static $db_fields = array('id', 'link_txt', 'link_url', 'item_text', 'filename', 'size');
+	protected static $db_fields = array('id', 'position', 'link_txt', 'link_url', 'item_text', 'filename', 'size');
 
 	public $id;
+    public $position;
 	public $link_txt;
     public $link_url;
     public $item_text;
@@ -125,7 +126,7 @@ class Item {
 
 	// Common Database Methods
 	public static function find_all() {
-		return self::find_by_sql("SELECT * FROM ".self::$table_name);
+		return self::find_by_sql("SELECT * FROM ".self::$table_name." ORDER BY position");
   }
 
     public static function find_by_id($id=0) {
