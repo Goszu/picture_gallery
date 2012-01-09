@@ -39,9 +39,9 @@ if (isset($_POST['submit'])) { // Form has been submitted.
 		<?php echo output_message($message); ?>
 		<form action="login.php" method="post">
 		  	<label for="username">Username:</label>
-		    <input type="text" name="username" maxlength="30" />
+		    <input id="username" type="text" name="username" maxlength="30" />
 		    <label for="password">Password:</label> 
-		    <input type="password" name="password" maxlength="30" />
+		    <input id="password" type="password" name="password" maxlength="30" />
 		    <input type="submit" name="submit" value="Login" />
 		</form>
     </div>

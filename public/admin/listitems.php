@@ -2,6 +2,7 @@
 require_once("../../includes/initialise.php");
 if (!$session->is_logged_in()) { redirect_to("login.php"); }
 ?>
+
 <html>
 <head>
     <title>Portfolio Admin Item List</title>
@@ -19,16 +20,19 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
 
     <div id="main">
         <form action="deleteitems.php" method="post">
-            <table>
             <?php
             $items = Item::find_all();
-            echo "<ul class='sortable'>";
-            foreach ($items as $item) {
-                echo "<li><input type='checkbox' value='". $item->id ."' name='iid[]' /><span>". $item->id ."</span><span> ". $item->filename ."</span></li>";
-            }
-            echo "</ul>";
             ?>
-            </table>
+            <ul class='sortable'>
+            <?php foreach ($items as $item) { ?>
+                <li>
+                    <input type="checkbox" value="<?php echo $item->id ?>" name="iid[]" />
+                    <span><?php echo $item->id ?> </span>
+                    <span><?php echo $item->filename ?></span>
+                    <span><a href="edititem.php?itemid=<?php echo $item->id ?>">Edit</a></span>
+                </li>
+            <?php } ?>
+            </ul>
             <input type="submit" name="submit" value="Delete Selected Items" />
         </form>
         <a href="index.php">Return to admin menu</a>

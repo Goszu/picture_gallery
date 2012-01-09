@@ -34,9 +34,9 @@ if (isset($_POST['submit'])) {
 		<?php echo output_message($message); ?>
 		<form action="adduser.php" method="post">
 		  	<label for="username">Username:</label>
-		    <input type="text" name="username" maxlength="30" value="<?php echo htmlentities($username); ?>" />
+		    <input id="username" type="text" name="username" maxlength="30" value="<?php echo htmlentities($username); ?>" />
 		    <label for="password">Password:</label>
-		    <input type="password" name="password" maxlength="30" value="<?php echo htmlentities($password); ?>" />
+		    <input id="password" type="password" name="password" maxlength="30" value="<?php echo htmlentities($password); ?>" />
 		    <input type="submit" name="submit" value="Add User" />
 		</form>
         <a href="index.php">Return to admin menu</a>

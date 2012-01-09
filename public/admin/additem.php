@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <div id="header">
-      	<h1>Portfolio - Add User</h1>
+      	<h1>Portfolio - Add Item</h1>
     </div>
     <div id="main">
 		<h2>Add User</h2>
@@ -38,13 +38,13 @@ if (isset($_POST['submit'])) {
 		  	<!--<label for="position">Position:</label>
 		    <input type="text" name="position" maxlength="5" />-->
 		    <label for="link_txt">Text for link:</label>
-		    <input type="text" name="link_txt" />
+		    <input type="text" id="link_txt" name="link_txt" />
             <label for="link_url">Link URL:</label>
-		    <input type="text" name="link_url" />
+		    <input type="text" id="link_url" name="link_url" />
             <label for="item_text">Item Text:</label>
-            <textarea name="item_text" rows="10" cols="30"> </textarea>
+            <textarea id="item_text" name="item_text" rows="10" cols="30"> </textarea>
             <label for="file_upload">Photo file:</label>
-		    <input type="file" name="file_upload" />
+		    <input id="file_upload" type="file" name="file_upload" />
 
 		    <input type="submit" name="submit" value="Add Item" />
 		</form>
