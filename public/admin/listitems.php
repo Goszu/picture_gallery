@@ -17,10 +17,14 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
                 console.log('sorted');
                 var order = $(this).sortable("serialize") + '&update=update';
                 console.log(order);
-                $.post("updateorder.php", order, function(theResponse){
-                    //$("#response").html(theResponse);
-                    //$("#response").slideDown('slow');
-                    //slideout();
+                $.post("updateorder.php", order, function (theResponse) {
+                    var info = $("<div id='response'></div>").prependTo("div#main").html(theResponse).hide();
+                    info.slideDown('slow');
+                    setTimeout(function() {
+                        info.slideUp('slow', function () {
+                            info.remove();
+                        });
+                    }, 2000);
                 });
             }
             });
@@ -37,9 +41,7 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
 
     <div id="main">
         <form action="deleteitems.php" method="post">
-            <?php
-            $items = Item::find_all();
-            ?>
+            <?php $items = Item::find_all(); ?>
             <ul class='sortable'>
             <?php foreach ($items as $item) { ?>
                 <li class="ui-state-default" id="itemid-<?php echo $item->id ?>">

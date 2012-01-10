@@ -4,8 +4,12 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
 
 if (isset($_POST['submit'])) {
 
+    $allItems = Item::find_all();
+    $itemCount = sizeof($allItems);
+    echo $itemCount;
+
     $item = new Item();
-    //$item->position = trim($_POST['position']);
+    $item->position = $itemCount + 1;
     $item->link_txt = trim($_POST['link_txt']);
     $item->link_url = trim($_POST['link_url']);
     $item->item_text = trim($_POST['item_text']);
