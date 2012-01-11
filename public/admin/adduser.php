@@ -4,20 +4,27 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
 
 if (isset($_POST['submit'])) {
 
+    $username = trim($_POST['username']);
+    $password = md5(trim($_POST['password']));
+
     $user = new User();
-    $user->username = trim($_POST['username']);
+    $user->username = $username;
 
     $found_user = User::find_by_username($user->username);
     if ($found_user) {
         $message = "User with this name already exists";
     } else {
-        $user->password = md5(trim($_POST['password']));
+        $user->password = $password;
         if($user->create()) {
             redirect_to('index.php');
+            $session->message("User has been successfully created.");
         } else {
             $message = "User has not been added!!";
         };
     };
+} else {
+    $username = "";
+    $password = "";
 };
 ?>
 <html>

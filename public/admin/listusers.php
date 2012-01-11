@@ -11,6 +11,9 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
     <div id="header">
       	<h1>Portfolio - User List</h1>
     </div>
+
+    <?php echo output_message($message); ?>
+
     <div id="main">
         <form action="deleteusers.php" method="post">
             <table>
