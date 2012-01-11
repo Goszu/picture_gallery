@@ -1,20 +1,15 @@
 <?php
 require_once("../../includes/initialise.php");
+
 if (!$session->is_logged_in()) { redirect_to("login.php"); }
 ?>
-<html>
-<head>
-    <title>Portfolio Admin Users List</title>
-    <link href="../css/main.css" media="all" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <div id="header">
-      	<h1>Portfolio - User List</h1>
-    </div>
 
-    <?php echo output_message($message); ?>
+<?php include_layout_template('admin_header.php'); ?>
 
     <div id="main">
+
+        <?php echo output_message($message); ?>
+
         <form action="deleteusers.php" method="post">
             <table>
             <?php
@@ -31,9 +26,5 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
 
 
     </div>
-    <div id="footer">
-    	Copyright <?php echo date("Y", time()); ?>, GoodWebSites.eu
-    </div>
-</body>
-</html>
-<?php if(isset($database)) { $database->close_connection(); } ?>
+
+<?php include_layout_template('admin_footer.php'); ?>

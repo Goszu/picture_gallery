@@ -1,6 +1,10 @@
 <?php
 require_once("../../includes/initialise.php");
+
 if (!$session->is_logged_in()) { redirect_to("login.php"); }
+?>
+
+<?php include_layout_template('admin_header.php');
 
 if (isset($_POST['submit'])) {
 
@@ -23,17 +27,8 @@ if (isset($_POST['submit'])) {
 };
 ?>
 
-<html>
-<head>
-    <title>Portfolio Admin Add User</title>
-    <link href="../css/main.css" media="all" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<div id="header">
-    <h1>Portfolio - Edit Item</h1>
-</div>
 <div id="main">
-    <h2>Add User</h2>
+    <h2>Edit item</h2>
     <?php echo output_message($message); ?>
     <form action="edititem.php" method="post">
         <!--<label for="position">Position:</label>
@@ -49,9 +44,5 @@ if (isset($_POST['submit'])) {
     </form>
 </div>
 <a href="index.php">Return to admin menu</a>
-<div id="footer">
-    Copyright <?php echo date("Y", time()); ?>, GoodWebSites.eu
-</div>
-</body>
-</html>
-<?php if(isset($database)) { $database->close_connection(); } ?>
+
+<?php include_layout_template('admin_footer.php'); ?>

@@ -1,45 +1,15 @@
 <?php
 require_once("../../includes/initialise.php");
+
 if (!$session->is_logged_in()) { redirect_to("login.php"); }
 ?>
 
-<html>
-<head>
-    <title>Portfolio Admin Item List</title>
-    <link href="../css/main.css" media="all" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="../js/jquery.js"></script>
-    <script type="text/javascript" src="../js/jquery-ui.js"></script>
-    <script type="text/javascript" src="../js/custom.js"></script>
-
-    <script type="text/javascript">
-        $(function() {
-            $("ul.sortable").sortable({ opacity: 0.8, cursor: 'move', update: function() {
-                console.log('sorted');
-                var order = $(this).sortable("serialize") + '&update=update';
-                console.log(order);
-                $.post("updateorder.php", order, function (theResponse) {
-                    var info = $("<div id='response'></div>").prependTo("div#main").html(theResponse).hide();
-                    info.slideDown('slow');
-                    setTimeout(function() {
-                        info.slideUp('slow', function () {
-                            info.remove();
-                        });
-                    }, 2000);
-                });
-            }
-            });
-        });
-    </script>
-
-</head>
-<body>
-    <div id="header">
-      	<h1>Portfolio - Item List</h1>
-    </div>
-
-    <?php echo output_message($message); ?>
+<?php include_layout_template('admin_header.php'); ?>
 
     <div id="main">
+
+        <?php echo output_message($message); ?>
+
         <form action="deleteitems.php" method="post">
             <?php $items = Item::find_all(); ?>
             <ul class='sortable'>
@@ -59,9 +29,13 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
 
 
     </div>
-    <div id="footer">
-    	Copyright <?php echo date("Y", time()); ?>, GoodWebSites.eu
-    </div>
-</body>
-</html>
-<?php if(isset($database)) { $database->close_connection(); } ?>
+
+    <script type="text/javascript">
+    // <![CDATA[
+        $(function () {
+            PORTFOLIO.sortItems();
+        });
+    // ]]>
+    </script>
+
+<?php include_layout_template('admin_footer.php'); ?>

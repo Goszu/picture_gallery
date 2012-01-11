@@ -3,15 +3,9 @@ require_once("../../includes/initialise.php");
 
 if (!$session->is_logged_in()) { redirect_to("login.php"); }
 ?>
-<html>
-<head>
-    <title>Photo Gallery</title>
-    <link href="../css/main.css" media="all" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <div id="header">
-    	<h1>Portfolio Admin</h1>
-    </div>
+
+<?php include_layout_template('admin_header.php'); ?>
+
     <div id="main">
 		<h2>Menu</h2>
         <ul>
@@ -27,11 +21,10 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
             <li>
                 <a href="listitems.php">Items</a>
             </li>
+            <li>
+                <a href="logout.php">Logout</a>
+            </li>
         </ul>
 	</div>
-		
-    <div id="footer">
-    	Copyright <?php echo date("Y", time()); ?>, GoodWebSites.eu
-    </div>
-</body>
-</html>
+
+<?php include_layout_template('admin_footer.php'); ?>
