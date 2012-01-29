@@ -1,20 +1,37 @@
 <?php require_once("../includes/initialise.php");?>
 <?php include_layout_template('header.php'); ?>
 
-<div id="items">
+<script type="text/javascript">
+    PORTFOLIO.items = [
     <?php $items = Item::find_all();
+          $item_count = count($items);
+          $index = 0;
     foreach ($items as $item) { ?>
-        <div class="item">
-            <img alt="<?php echo $item->link_txt ?>" style="width: 300px;" src="images/<?php echo $item->filename ?>" />
-            <div class="item-text">
-                <?php echo $item->item_text ?>
-            </div>
-            <div class="item-link">
-                <a href="<?php echo $item->link_url ?>"><?php echo $item->link_txt ?></a>
-            </div>
-
-        </div>
+        {
+            "decsription" : "<?php echo $item->item_text ?>",
+            "image" : "<?php echo $item->filename ?>",
+            "url" : "<?php echo $item->link_url ?>",
+            "anchor" : "<?php echo $item->link_txt ?>"
+        }<?php $index++; if ($index != $item_count) { echo ", "; } ?>
     <?php } ?>
+    ];
+
+    $(function () {
+        PORTFOLIO.slideInstance = PORTFOLIO.bgSlide({
+            container : "#content",
+            width : 800,
+            height : 800,
+            items : PORTFOLIO.items
+        });
+    });
+
+</script>
+
+<div id="page">
+    <div id="content">
+        <div id="text"> </div>
+        <div id="link"><a> </a></div>
+    </div>
 </div>
 
 <?php include_layout_template('footer.php'); ?>

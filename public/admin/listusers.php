@@ -7,6 +7,7 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
 <?php include_layout_template('admin_header.php'); ?>
 
     <div id="main">
+        <h2>Users List</h2>
 
         <?php echo output_message($message); ?>
 

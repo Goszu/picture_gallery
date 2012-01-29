@@ -7,6 +7,7 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
 <?php include_layout_template('admin_header.php'); ?>
 
     <div id="main">
+        <h2>Items List</h2>
 
         <?php echo output_message($message); ?>
 
@@ -17,7 +18,8 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
                 <li class="ui-state-default" id="itemid-<?php echo $item->id ?>">
                     <input type="checkbox" value="<?php echo $item->id ?>" name="iid[]" />
                     <span><?php echo $item->id ?> </span>
-                    <span><?php echo $item->filename ?></span>
+                    <span><?php echo $item->item_text ?> </span>
+                    <span><?php echo $item->filename ?> </span>
                     <span><?php echo $item->size_as_text() ?></span>
                     <span><a href="edititem.php?itemid=<?php echo $item->id ?>">Edit</a></span>
                 </li>
@@ -26,7 +28,6 @@ if (!$session->is_logged_in()) { redirect_to("login.php"); }
             <input type="submit" name="submit" value="Delete Selected Items" />
         </form>
         <a href="index.php">Return to admin menu</a>
-
 
     </div>
 

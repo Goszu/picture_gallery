@@ -1,5 +1,5 @@
 <div id="footer">
-    Copyright <?php echo date("Y", time()); ?>, GoodWebSites.eu
+    Copyright <?php echo date("Y", time()); ?>, footer info
 </div>
 </body>
 </html>

@@ -1,10 +1,8 @@
 <?php
 require_once("../../includes/initialise.php");
-
 if (!$session->is_logged_in()) { redirect_to("login.php"); }
-?>
 
-<?php include_layout_template('admin_header.php');
+include_layout_template('admin_header.php');
 
 if (isset($_POST['submit'])) {
 
@@ -20,6 +18,7 @@ if (isset($_POST['submit'])) {
     } else {
         // Failure
         $message = join("<br />", $item->errors);
+
     }
 
 } else {
@@ -30,9 +29,7 @@ if (isset($_POST['submit'])) {
 <div id="main">
     <h2>Edit item</h2>
     <?php echo output_message($message); ?>
-    <form action="edititem.php" method="post">
-        <!--<label for="position">Position:</label>
-              <input type="text" name="position" maxlength="5" />-->
+    <form action="edititem.php?itemid=<?php echo trim($_GET['itemid']) ?>" method="post">
         <label for="link_txt">Text for link:</label>
         <input id="link_txt" type="text" name="link_txt" value="<?php echo $item->link_txt ?>" />
         <label for="link_url">Link URL:</label>
@@ -42,7 +39,7 @@ if (isset($_POST['submit'])) {
         <input type="hidden" value="<?php echo trim($_GET['itemid']) ?>" name="item_id" />
         <input type="submit" name="submit" value="Update Item" />
     </form>
+    <a href="listitems.php">Return to items list</a>
 </div>
-<a href="index.php">Return to admin menu</a>
 
 <?php include_layout_template('admin_footer.php'); ?>

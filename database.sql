@@ -31,7 +31,7 @@ CREATE TABLE `items` (
   `filename` varchar(50) NOT NULL,
   `size` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (7,0,'asdf asdf','sadfasdf','asdf sdf sdf','zamek.jpg',258818),(8,0,'rrr aaa sss','sdf sdfs sdf','sdf sdf sdf sdf','plakat-4.jpg',84910);
+INSERT INTO `items` VALUES (9,1,'fly to venus !!!','www.google.co.uk','The planet venus...','venus.jpg',127937),(10,2,'Get the trip around the world','http://www.google.co.uk','Planet earth - our homeworld...','earth.jpg',50211),(11,4,'Mars flights discount','http://www.dochub.io','Mars - the red planet. Is there life on mars?','mars.jpg',139010),(12,3,'Buy properties on moon','http://nssdc.gsfc.nasa.gov','Moon the closest world from earth...','moon.jpg',59091),(16,5,'Get the Jupiter photos','http://www.guardian.co.uk','Jupiter - the gas gigant...','jupiter.jpg',109383);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +65,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3'),(8,'goszu','1a2d9606d9a30d8219b0541c47538f16');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -78,4 +78,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-01-06 23:01:34
+-- Dump completed on 2012-01-29 17:00:30

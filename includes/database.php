@@ -7,7 +7,7 @@ class MySQLDatabase {
 	public $last_query;
 	private $magic_quotes_active;
 	private $real_escape_string_exists;
-	
+
 	function __construct() {
 		$this->open_connection();
 		$this->magic_quotes_active = get_magic_quotes_gpc();
@@ -82,4 +82,5 @@ class MySQLDatabase {
 
 $database = new MySQLDatabase;
 $db =& $database;
+
 ?>
