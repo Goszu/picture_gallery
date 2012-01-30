@@ -8,10 +8,10 @@
           $index = 0;
     foreach ($items as $item) { ?>
         {
-            "decsription" : "<?php echo $item->item_text ?>",
+            "decsription" : "<?php echo htmlentities($item->item_text) ?>",
             "image" : "<?php echo $item->filename ?>",
             "url" : "<?php echo $item->link_url ?>",
-            "anchor" : "<?php echo $item->link_txt ?>"
+            "anchor" : "<?php echo htmlentities($item->link_txt) ?>"
         }<?php $index++; if ($index != $item_count) { echo ", "; } ?>
     <?php } ?>
     ];
