@@ -10,7 +10,7 @@
         {
             "decsription" : "<?php echo htmlentities($item->item_text) ?>",
             "image" : "<?php echo $item->filename ?>",
-            "url" : "<?php echo $item->link_url ?>",
+            "url" : "<?php echo check_protocol($item->link_url) ?>",
             "anchor" : "<?php echo htmlentities($item->link_txt) ?>"
         }<?php $index++; if ($index != $item_count) { echo ", "; } ?>
     <?php } ?>

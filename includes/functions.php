@@ -29,4 +29,13 @@ function include_layout_template($template="") {
     include(SITE_ROOT.DS.'public'.DS.'layouts'.DS.$template);
 }
 
+function check_protocol($url_string) {
+    if (strpos($url_string, "http://") === false) {
+        $url_string = "http://" . $url_string;
+        return $url_string;
+    } else {
+        return $url_string;
+    };
+}
+
 ?>
