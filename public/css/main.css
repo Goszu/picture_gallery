@@ -96,8 +96,17 @@ input, textarea {
     margin-bottom: 10px;
 }
 
+#item_text {
+    width: 880px;
+    weight: 200px;
+}
+
 .sortable input {
     display: inline;
+}
+
+.sortable li span {
+    margin-left: 10px;
 }
 
 #response {

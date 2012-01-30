@@ -25,13 +25,14 @@ DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `position` int(10) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
   `link_txt` varchar(512) NOT NULL,
   `link_url` varchar(512) NOT NULL,
   `item_text` text NOT NULL,
   `filename` varchar(50) NOT NULL,
   `size` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +41,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (9,1,'fly to venus !!!','www.google.co.uk','The planet venus...','venus.jpg',127937),(10,2,'Get the trip around the world','http://www.google.co.uk','Planet earth - our homeworld...','earth.jpg',50211),(11,4,'Mars flights discount','http://www.dochub.io','Mars - the red planet. Is there life on mars?','mars.jpg',139010),(12,3,'Buy properties on moon','http://nssdc.gsfc.nasa.gov','Moon the closest world from earth...','moon.jpg',59091),(16,5,'Get the Jupiter photos','http://www.guardian.co.uk','Jupiter - the gas gigant...','jupiter.jpg',109383);
+INSERT INTO `items` VALUES (9,1,'Venus','fly to venus !!!','http://www.google.co.uk','The planet venus...','venus.jpg',127937),(10,2,'Earth','Get the trip around the world','www.google.co.uk','Planet earth - our homeworld...','earth.jpg',50211),(11,4,'Mars','Mars flights discount','http://www.dochub.io','Mars - the red planet. Is there life on mars?','mars.jpg',139010),(12,3,'Moon','Buy properties on moon','http://nssdc.gsfc.nasa.gov','Moon the closest world from earth...','moon.jpg',59091),(16,5,'Jupiter','Get the Jupiter photos','www.guardian.co.uk','Jupiter - the gas gigant...','jupiter.jpg',109383);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-01-30  0:20:02
+-- Dump completed on 2012-01-30 23:32:43
