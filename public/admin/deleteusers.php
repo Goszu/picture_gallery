@@ -8,7 +8,9 @@ if (isset($_POST['submit'])) {
         $user = User::find_by_id($userId);
         $user->delete();
     }
+    $session->message("User has been successfully deleted.");
     redirect_to('listusers.php');
+
 };
 ?>
 <?php if(isset($database)) { $database->close_connection(); } ?>

@@ -2,8 +2,6 @@
 require_once("../../includes/initialise.php");
 if (!$session->is_logged_in()) { redirect_to("login.php"); }
 
-include_layout_template('admin_header.php');
-
 if (isset($_POST['submit'])) {
 
     $username = trim($_POST['username']);
@@ -18,8 +16,8 @@ if (isset($_POST['submit'])) {
     } else {
         $user->password = $password;
         if($user->create()) {
-            redirect_to('index.php');
             $session->message("User has been successfully created.");
+            redirect_to('listusers.php');
         } else {
             $message = "User has not been added!!";
         };
@@ -28,6 +26,8 @@ if (isset($_POST['submit'])) {
     $username = "";
     $password = "";
 };
+
+include_layout_template('admin_header.php');
 ?>
 
     <div id="main">

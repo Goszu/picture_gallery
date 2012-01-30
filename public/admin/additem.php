@@ -2,8 +2,6 @@
 require_once("../../includes/initialise.php");
 if (!$session->is_logged_in()) { redirect_to("login.php"); }
 
-include_layout_template('admin_header.php');
-
 if (isset($_POST['submit'])) {
 
     $allItems = Item::find_all();
@@ -27,6 +25,8 @@ if (isset($_POST['submit'])) {
 	}
 
 };
+
+include_layout_template('admin_header.php');
 ?>
 
     <div id="main">
