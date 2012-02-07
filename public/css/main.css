@@ -126,3 +126,42 @@ ul.sortable li:hover {
     padding: 10px;
     font-size: 1.3em;
 }
+
+/* block styling */
+
+.block {
+    width: 250px;
+    height: 250px;
+    float: left;
+    background: #ffffff;
+    margin: 0 10px 10px 0;
+}
+
+.block p {
+    font-size: 120px;
+    color: #ffffff;
+}
+
+.block.big p {
+    font-size: 120px;
+    color: #ffffff;
+    padding: 50px 0 0 185px;
+}
+
+#pane {
+    position: relative;
+    min-width: 780px;
+}
+.image-container {
+    height: 190px;
+    margin: 10px;
+    overflow: hidden;
+}
+
+.big .image-container {
+    height: auto;
+}
+
+.image-container img {
+    width: 100%;
+}

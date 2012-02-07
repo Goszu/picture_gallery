@@ -23,6 +23,11 @@
             height : 800,
             items : PORTFOLIO.items
         });
+
+        $(document).click(function () {
+            PORTFOLIO.slideInstance.next();
+        });
+
     });
 
 </script>

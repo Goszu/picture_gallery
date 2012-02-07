@@ -97,13 +97,3 @@ PORTFOLIO.bgSlide = function(config) {
     };
 };
 
-
-$(function() {
-    // fire functions when DOM is ready
-
-    $(document).click(function () {
-        PORTFOLIO.slideInstance.next();
-    });
-
-});
-
