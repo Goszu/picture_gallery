@@ -126,8 +126,11 @@ ul.sortable li:hover {
     padding: 10px;
     font-size: 1.3em;
 }
+#cke_item_text {
+    margin-bottom: 10px;
+}
 
-/* block styling */
+/* frontend block styling */
 
 .block {
     width: 250px;
@@ -137,21 +140,11 @@ ul.sortable li:hover {
     margin: 0 10px 10px 0;
 }
 
-.block p {
-    font-size: 120px;
-    color: #ffffff;
-}
-
-.block.big p {
-    font-size: 120px;
-    color: #ffffff;
-    padding: 50px 0 0 185px;
-}
-
 #pane {
     position: relative;
     min-width: 780px;
 }
+
 .image-container {
     height: 190px;
     margin: 10px;
@@ -164,4 +157,14 @@ ul.sortable li:hover {
 
 .image-container img {
     width: 100%;
+}
+
+.name {
+    padding: 0 10px;
+    font-size: 1.2em;
+}
+
+.item-text {
+    padding: 20px 10px;
+    font-size: 1.2em;
 }

@@ -9,6 +9,7 @@ function boxmania(selector) {
         $('.moved').each(function () {
             $(this).removeClass('moved').removeAttr('style');
         });
+        $('.item-text').remove();
     }
 
     function checkClickedCol() {
@@ -58,8 +59,18 @@ function boxmania(selector) {
             i++;
 
         } while (i <= (clickedCol - 1) * 3);
+    }
 
+    function getItemText(target, itemId) {
+        $.ajax({
+            url: "get_item_text.php",
+            type: "POST",
+            data: {item_id : $(target).data('id')},
+            success: function(html){
+                $(target).find('.item-text').append(html);
+            }
 
+        });
     }
 
     $(selector + ' .block').click(function () {
@@ -84,8 +95,8 @@ function boxmania(selector) {
             $(this).css({
                 width: '510px',
                 height: '1030px'
-            }).addClass('big');
-
+            }).addClass('big').append('<div class="item-text"></div>');
+            getItemText(this, boxNo);
             fillGaps();
         }
 

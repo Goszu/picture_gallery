@@ -45,4 +45,10 @@ include_layout_template('admin_header.php');
     <a href="listitems.php">Return to items list</a>
 </div>
 
+<script type="text/javascript">
+//<![CDATA[
+    CKEDITOR.replace('item_text');
+//]]>
+</script>
+
 <?php include_layout_template('admin_footer.php'); ?>
