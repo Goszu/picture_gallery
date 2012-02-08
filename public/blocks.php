@@ -1,5 +1,5 @@
 <?php require_once("../includes/initialise.php");?>
-<?php include_layout_template('header.php'); ?>
+<?php include_layout_template('blocks_header.php'); ?>
 
 <script type="text/javascript">
     $(function () {

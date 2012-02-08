@@ -1,0 +1,86 @@
+/* admin panel styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 62.5%;
+    font-family: arial, sans-serif;
+}
+
+a {
+    color: #18439a;
+}
+
+a:hover {
+    color: #000000;
+}
+
+h1 {
+    font-family: arial, sans-serif;
+    font-size: 2em;
+}
+
+h2 {
+    color: orange;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#header {
+    background: #bbbbbb;
+    padding: 10px;
+}
+
+#header h1 {
+    color:  #ffffff;
+    text-shadow: 1px 1px 0px #000000;
+}
+
+#main {
+    width: 900px;
+    margin: 0 auto;
+    font-size: 1.2em;
+}
+
+input, textarea {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#item_text {
+    width: 880px;
+    weight: 200px;
+}
+
+.sortable input {
+    display: inline;
+}
+
+.sortable li span {
+    margin-left: 10px;
+}
+
+#response {
+    padding: 10px;
+}
+
+ul.sortable li:hover {
+    cursor: move;
+}
+
+#footer {
+    height: 100%;
+    background: #bbbbbb;
+    margin-top: 20px;
+    color:  #ffffff;
+    text-shadow: 1px 1px 0px #000000;
+    padding: 10px;
+    font-size: 1.3em;
+}
+
+#cke_item_text {
+    margin-bottom: 10px;
+}

@@ -1,5 +1,5 @@
 <?php require_once("../includes/initialise.php");?>
-<?php include_layout_template('header.php'); ?>
+<?php include_layout_template('slides_header.php'); ?>
 
 <script type="text/javascript">
     PORTFOLIO.items = [
@@ -8,7 +8,7 @@
           $index = 0;
     foreach ($items as $item) { ?>
         {
-            "decsription" : "<?php echo htmlentities($item->item_text) ?>",
+            "decsription" : "<?php echo $item->item_text ?>",
             "image" : "<?php echo $item->filename ?>",
             "url" : "<?php echo check_protocol($item->link_url) ?>",
             "anchor" : "<?php echo htmlentities($item->link_txt) ?>"

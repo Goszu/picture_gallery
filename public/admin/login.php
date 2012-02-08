@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) { // Form has been submitted.
 <html>
 <head>
     <title>Portfolio Admin Login</title>
-    <link href="../css/main.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="../css/slides.css" media="all" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="header">
