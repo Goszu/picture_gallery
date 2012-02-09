@@ -39,17 +39,19 @@ function boxmania(selector) {
             clickedCol = checkClickedCol(),
             expandedHeightInBoxesNo = Math.ceil($(expandedBox).height() / boxHeight);
 
-        console.log('$(expandedBox).height(): ' + $(expandedBox).height() + ', expandedHeightInBoxesNo: ' + expandedHeightInBoxesNo + ', boxHeight: ' + boxHeight);
-
         $(expandedBox).height((expandedHeightInBoxesNo * boxHeight) - 10);
 
         if (clickedCol === 1) {return;}
 
         // TODO add proper handling when item from last column clicked (for now temporary solution)
-        if (clickedCol === colsNo || clickedCol === colsNo - 1) {
+        if (clickedCol === colsNo) {
             clickedCol -=2;
             $('.block:nth-child(' + (boxNo - 1) + ')').hide().addClass('moved');
             $('.block:nth-child(' + (boxNo - 2) + ')').hide().addClass('moved');
+        }
+        if (clickedCol === (colsNo - 1)) {
+            clickedCol -=1;
+            $('.block:nth-child(' + (boxNo - 1) + ')').hide().addClass('moved');
         }
 
         i = 1;
