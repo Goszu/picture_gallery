@@ -2,14 +2,16 @@ function boxmania(selector) {
 
     var i,
         colsNo,
-        boxNo;
+        boxNo,
+        boxWidth = 230,
+        boxHeight = 205,
+        expandedSize = 3;
 
     function getStateBack() {
 
         $('.moved').each(function () {
             $(this).removeClass('moved').removeAttr('style');
         });
-        $('.item-text').remove();
     }
 
     function checkClickedCol() {
@@ -23,32 +25,39 @@ function boxmania(selector) {
     }
 
     function checkColNo() {
-        colsNo = Math.floor(($(window).width() - 16) / 260);
+        colsNo = Math.floor(($(window).width() - 16) / boxWidth);
         //setInterval(function () {
-        //    colsNo = Math.floor(($(window).width() - 16) / 260);
+        //    colsNo = Math.floor(($(window).width() - 16) / boxWidth);
         //    console.log(colsNo);
         //}, 1000);
     }
 
-    function fillGaps() {
+    function fillGaps(expandedBox) {
+
         var leftOffset = 0,
             topOffset = 0,
-            clickedCol = checkClickedCol();
+            clickedCol = checkClickedCol(),
+            expandedHeightInBoxesNo = Math.ceil($(expandedBox).height() / boxHeight);
+
+        console.log('$(expandedBox).height(): ' + $(expandedBox).height() + ', expandedHeightInBoxesNo: ' + expandedHeightInBoxesNo + ', boxHeight: ' + boxHeight);
+
+        $(expandedBox).height((expandedHeightInBoxesNo * boxHeight) - 10);
 
         if (clickedCol === 1) {return;}
 
         // TODO add proper handling when item from last column clicked (for now temporary solution)
-        if (clickedCol === colsNo) {
-            clickedCol -=1;
+        if (clickedCol === colsNo || clickedCol === colsNo - 1) {
+            clickedCol -=2;
             $('.block:nth-child(' + (boxNo - 1) + ')').hide().addClass('moved');
+            $('.block:nth-child(' + (boxNo - 2) + ')').hide().addClass('moved');
         }
 
         i = 1;
         do {
             $('.block:nth-child(' + (boxNo + i) + ')').css({
                 position: 'absolute',
-                top: (topOffset * 260) + (Math.ceil(boxNo / colsNo) * 260),
-                left: leftOffset * 260
+                top: (topOffset * boxHeight) + (Math.ceil(boxNo / colsNo) * boxHeight),
+                left: leftOffset * boxWidth
             }).addClass('moved');
             leftOffset++;
 
@@ -58,16 +67,19 @@ function boxmania(selector) {
             }
             i++;
 
-        } while (i <= (clickedCol - 1) * 3);
+        } while (i <= (clickedCol - 1) * (expandedHeightInBoxesNo -1));
+
+
     }
 
-    function getItemText(target, itemId) {
+    function getItemText(target, itemId, callback) {
         $.ajax({
             url: "get_item_text.php",
             type: "POST",
             data: {item_id : $(target).data('id')},
             success: function(html){
                 $(target).find('.item-text').append(html);
+                callback(target);
             }
 
         });
@@ -79,25 +91,26 @@ function boxmania(selector) {
 
         boxNo = $(this).data('no');
 
-        if ($(this).hasClass('big')) {
+        if ($(this).hasClass('big-block')) {
+            // clicked on expanded block
             getStateBack();
-            $(this).removeAttr('style').removeClass('big');
+            $(this).removeAttr('style').removeClass('big-block').addClass('block');
         } else {
 
-            $(selector + ' .block').each(function () {
-                if ($(this).hasClass('big')) {
-                    console.log('found big one')
+            $(selector + ' div').each(function () {
+                if ($(this).hasClass('big-block')) {
+                    // found expanded block somwere on the page - need to collapse it
                     getStateBack();
-                    $(this).removeAttr('style').removeClass('big');
+                    $(this).removeAttr('style').removeClass('big-block').addClass('block');
                 }
             });
 
             $(this).css({
-                width: '510px',
-                height: '1030px'
-            }).addClass('big').append('<div class="item-text"></div>');
-            getItemText(this, boxNo);
-            fillGaps();
+                width: (boxWidth * expandedSize) - 10,
+                'min-height': '810px'
+            }).removeClass('block').addClass('big-block').append('<div class="item-text"></div>');
+            getItemText(this, boxNo, fillGaps);
+            //fillGaps(this);
         }
 
     });

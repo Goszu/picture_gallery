@@ -8,7 +8,7 @@
           $index = 0;
     foreach ($items as $item) { ?>
         {
-            "decsription" : "<?php echo $item->item_text ?>",
+            "decsription" : "<?php echo trim($item->item_text) ?>",
             "image" : "<?php echo $item->filename ?>",
             "url" : "<?php echo check_protocol($item->link_url) ?>",
             "anchor" : "<?php echo htmlentities($item->link_txt) ?>"

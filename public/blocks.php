@@ -3,12 +3,12 @@
 
 <script type="text/javascript">
     $(function () {
-        boxmania('#page');
+        boxmania('#pane');
     });
 </script>
 
 
-<div id="page">
+<div id="pane">
     <?php $items = Item::find_all();
     $item_count = count($items);
     $index = 0;

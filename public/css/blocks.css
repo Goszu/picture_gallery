@@ -8,8 +8,15 @@ body {
 }
 
 .block {
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 195px;
+    float: left;
+    background: #ffffff;
+    margin: 0 10px 10px 0;
+}
+
+.big-block {
+    overflow: visible;
     float: left;
     background: #ffffff;
     margin: 0 10px 10px 0;
@@ -17,21 +24,22 @@ body {
 
 #pane {
     position: relative;
-    min-width: 780px;
-}
-
-.image-container {
-    height: 190px;
-    margin: 10px;
-    overflow: hidden;
-}
-
-.big .image-container {
-    height: auto;
+    min-width: 690px;
 }
 
 .image-container img {
     width: 100%;
+}
+
+.block .image-container {
+    height: 140px;
+    margin: 10px;
+    overflow: hidden;
+}
+
+.big-block .image-container {
+    height: auto;
+    margin: 10px;
 }
 
 .name {
