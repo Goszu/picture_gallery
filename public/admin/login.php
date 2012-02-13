@@ -26,16 +26,8 @@ if (isset($_POST['submit'])) { // Form has been submitted.
     $password = "";
 }
 
-?>
-<html>
-<head>
-    <title>Portfolio Admin Login</title>
-    <link href="../css/slides.css" media="all" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <div id="header">
-      	<h1>Portfolio Admin</h1>
-    </div>
+include_layout_template('admin_header.php'); ?>
+
     <div id="main">
 		<h2>Login</h2>
 		<?php echo output_message($message); ?>
@@ -47,9 +39,5 @@ if (isset($_POST['submit'])) { // Form has been submitted.
 		    <input type="submit" name="submit" value="Login" />
 		</form>
     </div>
-    <div id="footer">
-    	Copyright <?php echo date("Y", time()); ?>, GoodWebSites.eu
-    </div>
-</body>
-</html>
-<?php if(isset($database)) { $database->close_connection(); } ?>
+
+<?php include_layout_template('admin_footer.php'); ?>

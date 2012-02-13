@@ -10,8 +10,10 @@ function boxmania(selector) {
     function getStateBack() {
 
         $('.moved').each(function () {
-            $(this).removeClass('moved').removeAttr('style');
+            console.log($(this).data("no"));
+            $(this).removeClass('moved').insertAfter('.block:nth-child(' + ($(this).data("no") - 1) + ')').removeAttr('style');
         });
+        $('.item-text').remove();
     }
 
     function checkClickedCol() {
@@ -46,13 +48,14 @@ function boxmania(selector) {
         // TODO add proper handling when item from last column clicked (for now temporary solution)
         if (clickedCol === colsNo) {
             clickedCol -=2;
-            $('.block:nth-child(' + (boxNo - 1) + ')').hide().addClass('moved');
-            $('.block:nth-child(' + (boxNo - 2) + ')').hide().addClass('moved');
+            $('.block:nth-child(' + (boxNo - 1) + ')').insertAfter('.block:last-child').addClass('moved');
+            $('.block:nth-child(' + (boxNo - 2) + ')').insertAfter('.block:last-child').addClass('moved');
         }
         if (clickedCol === (colsNo - 1)) {
             clickedCol -=1;
-            $('.block:nth-child(' + (boxNo - 1) + ')').hide().addClass('moved');
+            $('.block:nth-child(' + (boxNo - 1) + ')').insertAfter('.block:last-child').addClass('moved');
         }
+        if (colsNo === 3) {return;}
 
         i = 1;
         do {
@@ -74,14 +77,27 @@ function boxmania(selector) {
 
     }
 
-    function getItemText(target, itemId, callback) {
+    function expand(target) {
+        $(target).css({
+            width: (boxWidth * expandedSize) - 10,
+            'min-height': '810px'
+        }).removeClass('block').addClass('big-block').append('<div class="item-text"></div>');
+    }
+
+    function goToId(id){
+        $('html,body').animate({scrollTop: $('#' + id).offset().top - 20},'slow');
+    }
+
+    function getItemText(target, itemId, callback1, callback2, callback3) {
         $.ajax({
             url: "get_item_text.php",
             type: "POST",
             data: {item_id : $(target).data('id')},
-            success: function(html){
+            success: function(html) {
+                callback1(target);
                 $(target).find('.item-text').append(html);
-                callback(target);
+                callback2(target);
+                callback3($(target).attr('id'));
             }
 
         });
@@ -107,11 +123,8 @@ function boxmania(selector) {
                 }
             });
 
-            $(this).css({
-                width: (boxWidth * expandedSize) - 10,
-                'min-height': '810px'
-            }).removeClass('block').addClass('big-block').append('<div class="item-text"></div>');
-            getItemText(this, boxNo, fillGaps);
+
+            getItemText(this, boxNo, expand, fillGaps, goToId);
             //fillGaps(this);
         }
 

@@ -34,9 +34,15 @@ ul {
     padding: 10px;
 }
 
-#header h1 {
+#header h1, #preview {
     color:  #ffffff;
     text-shadow: 1px 1px 0px #000000;
+}
+
+#preview {
+    float: right;
+    font-size: 1.4em;
+    margin: 15px;
 }
 
 #main {
@@ -53,6 +59,10 @@ input, textarea {
 #item_text {
     width: 880px;
     weight: 200px;
+}
+
+a.list-add {
+    margin-right: 10px;
 }
 
 .sortable input {

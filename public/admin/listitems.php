@@ -27,6 +27,7 @@ include_layout_template('admin_header.php');
             </ul>
             <input type="submit" name="submit" value="Delete Selected Items" />
         </form>
+        <a class="list-add" href="additem.php">Add item</a>
         <a href="index.php">Return to admin menu</a>
 
     </div>

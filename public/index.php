@@ -1,42 +1,45 @@
 <?php require_once("../includes/initialise.php");?>
-<?php include_layout_template('slides_header.php'); ?>
+<?php include_layout_template('blocks_header.php'); ?>
 
 <script type="text/javascript">
-    PORTFOLIO.items = [
-    <?php $items = Item::find_all();
-          $item_count = count($items);
-          $index = 0;
-    foreach ($items as $item) { ?>
-        {
-            "decsription" : "<?php echo trim($item->item_text) ?>",
-            "image" : "<?php echo $item->filename ?>",
-            "url" : "<?php echo check_protocol($item->link_url) ?>",
-            "anchor" : "<?php echo htmlentities($item->link_txt) ?>"
-        }<?php $index++; if ($index != $item_count) { echo ", "; } ?>
-    <?php } ?>
-    ];
-
     $(function () {
-        PORTFOLIO.slideInstance = PORTFOLIO.bgSlide({
-            container : "#content",
-            width : 800,
-            height : 800,
-            items : PORTFOLIO.items
-        });
+        boxmania('#pane');
 
-        $(document).click(function () {
-            PORTFOLIO.slideInstance.next();
-        });
+
+        var oldBodyContent = document.getElementsByTagName('body')[0].innerHTML;
+
+        function check() {
+            console.log('checking');
+            var bodyContent = document.getElementsByTagName('body')[0].innerHTML;
+
+            if(bodyContent !== oldBodyContent) {
+                console.log('body changed');
+            }
+        }
+
+        setInterval(function () {check()}, 500);
 
     });
 
 </script>
 
-<div id="page">
-    <div id="content">
-        <div id="text"> </div>
-        <div id="link"><a> </a></div>
-    </div>
+
+<div id="pane">
+    <?php $items = Item::find_all();
+    $item_count = count($items);
+    $index = 0;
+    foreach ($items as $item) {
+        $index++ ?>
+
+        <div class="block" id="bl-<?php echo $index ?>" data-no="<?php echo $index ?>" data-id="<?php echo $item->id ?>">
+            <div class="image-container">
+                <img src="images/<?php echo $item->filename ?>" />
+            </div>
+            <div class="name">
+                <?php echo $item->name ?>
+            </div>
+        </div>
+    <?php } ?>
 </div>
 
 <?php include_layout_template('footer.php'); ?>

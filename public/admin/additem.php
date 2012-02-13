@@ -30,24 +30,30 @@ if (isset($_POST['submit'])) {
 include_layout_template('admin_header.php');
 ?>
 
-    <div id="main">
-		<h2>Add Item</h2>
-		<?php echo output_message($message); ?>
-		<form action="additem.php" enctype="multipart/form-data" method="post">
-            <label for="name">Item name:</label>
-            <input id="name" type="text" name="name" />
-		    <label for="link_txt">Text for link:</label>
-		    <input type="text" id="link_txt" name="link_txt" />
-            <label for="link_url">Link URL:</label>
-		    <input type="text" id="link_url" name="link_url" />
-            <label for="item_text">Item Text:</label>
-            <textarea id="item_text" name="item_text" rows="10" cols="30"></textarea>
-            <label for="file_upload">Photo file:</label>
-		    <input id="file_upload" type="file" name="file_upload" />
+<div id="main">
+    <h2>Add Item</h2>
+    <?php echo output_message($message); ?>
+    <form action="additem.php" enctype="multipart/form-data" method="post">
+        <label for="name">Item name:</label>
+        <input id="name" type="text" name="name" />
+        <label for="link_txt">Text for link:</label>
+        <input type="text" id="link_txt" name="link_txt" />
+        <label for="link_url">Link URL:</label>
+        <input type="text" id="link_url" name="link_url" />
+        <label for="item_text">Item Text:</label>
+        <textarea id="item_text" name="item_text" rows="10" cols="30"></textarea>
+        <label for="file_upload">Photo file:</label>
+        <input id="file_upload" type="file" name="file_upload" />
 
-		    <input type="submit" name="submit" value="Add Item" />
-		</form>
-        <a href="index.php">Return to admin menu</a>
-    </div>
+        <input type="submit" name="submit" value="Add Item" />
+    </form>
+    <a href="index.php">Return to admin menu</a>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    CKEDITOR.replace('item_text');
+    //]]>
+</script>
 
     <?php include_layout_template('admin_footer.php'); ?>
