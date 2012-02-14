@@ -39,15 +39,38 @@ body {
 
 .big-block .image-container {
     height: auto;
-    margin: 10px;
+    margin: 10px 20px;
 }
 
 .name {
-    padding: 0 10px;
+    padding: 0 20px;
     font-size: 1.2em;
 }
 
 .item-text {
-    padding: 20px 10px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+}
+
+#header .name {
+    font-family: Georgia;
+    padding: 20px;
+    font-size: 2.4em;
+}
+
+#close {
+    float: right;
+    margin: 20px;
+    cursor: pointer;
+}
+
+#debug {
+    background: #fff;
+    color: red;
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    width: 130px;
+    padding: 0 10px;
     font-size: 1.2em;
 }

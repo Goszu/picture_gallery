@@ -5,15 +5,22 @@ function boxmania(selector) {
         boxNo,
         boxWidth = 230,
         boxHeight = 205,
-        expandedSize = 3;
+        expandedSize = 3,
+        debug = true;
 
     function getStateBack() {
-
+        $('.big-block .name').insertAfter('.big-block .image-container');
         $('.moved').each(function () {
-            console.log($(this).data("no"));
-            $(this).removeClass('moved').insertAfter('.block:nth-child(' + ($(this).data("no") - 1) + ')').removeAttr('style');
+            $(this).removeAttr('style').removeClass('moved');
+            if ($('#bl-' + ($(this).data("no") + 1)).html() !== null) {
+                $(this).insertBefore('#bl-' + ($(this).data("no") + 1));
+            } else {
+                $(this).insertAfter('#bl-' + ($(this).data("no") - 1));
+            }
         });
         $('.item-text').remove();
+        $('#header').remove();
+
     }
 
     function checkClickedCol() {
@@ -28,10 +35,6 @@ function boxmania(selector) {
 
     function checkColNo() {
         colsNo = Math.floor(($(window).width() - 16) / boxWidth);
-        //setInterval(function () {
-        //    colsNo = Math.floor(($(window).width() - 16) / boxWidth);
-        //    console.log(colsNo);
-        //}, 1000);
     }
 
     function fillGaps(expandedBox) {
@@ -45,17 +48,17 @@ function boxmania(selector) {
 
         if (clickedCol === 1) {return;}
 
-        // TODO add proper handling when item from last column clicked (for now temporary solution)
         if (clickedCol === colsNo) {
             clickedCol -=2;
-            $('.block:nth-child(' + (boxNo - 1) + ')').insertAfter('.block:last-child').addClass('moved');
-            $('.block:nth-child(' + (boxNo - 2) + ')').insertAfter('.block:last-child').addClass('moved');
+            $(expandedBox).insertBefore('.block:nth-child(' + (boxNo - 2) + ')').addClass('moved');
+            boxNo -= 2;
         }
         if (clickedCol === (colsNo - 1)) {
             clickedCol -=1;
-            $('.block:nth-child(' + (boxNo - 1) + ')').insertAfter('.block:last-child').addClass('moved');
+            $(expandedBox).insertBefore('.block:nth-child(' + (boxNo - 1) + ')').addClass('moved');
+            boxNo -= 1;
         }
-        if (colsNo === 3) {return;}
+        if (colsNo === expandedSize) {return;}
 
         i = 1;
         do {
@@ -73,34 +76,46 @@ function boxmania(selector) {
             i++;
 
         } while (i <= (clickedCol - 1) * (expandedHeightInBoxesNo -1));
-
-
     }
 
     function expand(target) {
         $(target).css({
             width: (boxWidth * expandedSize) - 10,
             'min-height': '810px'
-        }).removeClass('block').addClass('big-block').append('<div class="item-text"></div>');
+        }).removeClass('block').addClass('big-block');
     }
 
-    function goToId(id){
-        $('html,body').animate({scrollTop: $('#' + id).offset().top - 20},'slow');
+    function goToId(target){
+        $('html,body').animate({scrollTop: $('#' + $(target).attr('id')).offset().top - 20},'slow');
     }
 
-    function getItemText(target, itemId, callback1, callback2, callback3) {
+    function addExpandedMarkup(target) {
+        $(target).prepend('<div id="header"><img src="images/close.gif" id="close"/></div>');
+        $(target).find('.name').appendTo('#header');
+    }
+
+    function getItemText(target, itemId) {
+        var args = Array.prototype.slice.apply(arguments, [2]);
         $.ajax({
             url: "get_item_text.php",
             type: "POST",
             data: {item_id : $(target).data('id')},
             success: function(html) {
-                callback1(target);
-                $(target).find('.item-text').append(html);
-                callback2(target);
-                callback3($(target).attr('id'));
+                $(target).append('<div class="item-text">' + html + '</div>');
+                for( var i = 0; i < args.length; i++ ) {
+                    args[i](target);
+                }
             }
 
         });
+    }
+
+    if (debug === true) {
+        $('body').append('<div id="debug"></div>');
+        setInterval(function () {
+            colsNo = Math.floor(($(window).width() - 16) / boxWidth);
+            $('#debug').html('<p>Number of columns: ' + colsNo + '</p>');
+        }, 1000);
     }
 
     $(selector + ' .block').click(function () {
@@ -117,15 +132,14 @@ function boxmania(selector) {
 
             $(selector + ' div').each(function () {
                 if ($(this).hasClass('big-block')) {
-                    // found expanded block somwere on the page - need to collapse it
+                    // found expanded block somewere on the page - need to collapse it
                     getStateBack();
                     $(this).removeAttr('style').removeClass('big-block').addClass('block');
                 }
             });
 
-
-            getItemText(this, boxNo, expand, fillGaps, goToId);
-            //fillGaps(this);
+            // arguments from third - callback functions when ajax is successful
+            getItemText(this, boxNo, expand, addExpandedMarkup, fillGaps, goToId);
         }
 
     });

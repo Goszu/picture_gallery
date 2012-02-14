@@ -4,21 +4,6 @@
 <script type="text/javascript">
     $(function () {
         boxmania('#pane');
-
-
-        var oldBodyContent = document.getElementsByTagName('body')[0].innerHTML;
-
-        function check() {
-            console.log('checking');
-            var bodyContent = document.getElementsByTagName('body')[0].innerHTML;
-
-            if(bodyContent !== oldBodyContent) {
-                console.log('body changed');
-            }
-        }
-
-        setInterval(function () {check()}, 500);
-
     });
 
 </script>
