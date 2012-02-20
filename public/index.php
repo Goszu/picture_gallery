@@ -1,14 +1,5 @@
 <?php require_once("../includes/initialise.php");?>
-<?php include_layout_template('blocks_header.php'); ?>
-
-<script type="text/javascript">
-    $(function () {
-        boxmania('#pane');
-    });
-
-</script>
-
-
+<?php include_layout_template('header.php'); ?>
 <div id="pane">
     <?php $items = Item::find_all();
     $item_count = count($items);
@@ -18,7 +9,7 @@
 
         <div class="block" id="bl-<?php echo $index ?>" data-no="<?php echo $index ?>" data-id="<?php echo $item->id ?>">
             <div class="image-container">
-                <img src="images/<?php echo $item->filename ?>" />
+                <img src="images/block_thumbs/<?php echo $item->filename ?>" />
             </div>
             <div class="name">
                 <?php echo $item->name ?>
@@ -26,5 +17,16 @@
         </div>
     <?php } ?>
 </div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="js/boxmania.js"></script>
+<script type="text/javascript">
+// <[CDATA[
+    $(function () {
+        boxmania('#pane');
+    });
+// ]]>
+</script>
 
 <?php include_layout_template('footer.php'); ?>

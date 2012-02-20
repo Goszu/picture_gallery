@@ -5,19 +5,17 @@ require_once(LIB_PATH.DS.'database.php');
 class Item {
 
 	protected static $table_name="items";
-	protected static $db_fields = array('id', 'position', 'name', 'link_txt', 'link_url', 'item_text', 'filename', 'size');
+	protected static $db_fields = array('id', 'position', 'name', 'item_text', 'filename', 'size');
 
 	public $id;
     public $position;
     public $name;
-	public $link_txt;
-    public $link_url;
     public $item_text;
     public $filename;
     public $size;
 
     private $temp_path;
-    protected $upload_dir = "images";
+    protected $upload_dir = "images/block_thumbs";
     public $errors = array();
 
     protected $upload_errors = array(

@@ -6,10 +6,19 @@ function boxmania(selector) {
         boxWidth = 230,
         boxHeight = 205,
         expandedSize = 3,
-        debug = true;
+        debug = false,
+        loaderImg;
+
+    function checkScrollbar() {
+        var docHeight = $(document).height();
+        var scroll    = $(window).height();
+        if(docHeight > scroll) return true;
+        else return false;
+    }
 
     function getStateBack() {
         $('.big-block .name').insertAfter('.big-block .image-container');
+        $('.big-block div.image-container').show();
         $('.moved').each(function () {
             $(this).removeAttr('style').removeClass('moved');
             if ($('#bl-' + ($(this).data("no") + 1)).html() !== null) {
@@ -20,7 +29,6 @@ function boxmania(selector) {
         });
         $('.item-text').remove();
         $('#header').remove();
-
     }
 
     function checkClickedCol() {
@@ -34,7 +42,7 @@ function boxmania(selector) {
     }
 
     function checkColNo() {
-        colsNo = Math.floor(($(window).width() - 16) / boxWidth);
+        colsNo = Math.floor($('body').width() / boxWidth);
     }
 
     function fillGaps(expandedBox) {
@@ -81,7 +89,7 @@ function boxmania(selector) {
     function expand(target) {
         $(target).css({
             width: (boxWidth * expandedSize) - 10,
-            'min-height': '810px'
+            'min-height': '400px'
         }).removeClass('block').addClass('big-block');
     }
 
@@ -101,47 +109,69 @@ function boxmania(selector) {
             type: "POST",
             data: {item_id : $(target).data('id')},
             success: function(html) {
+                $('#loader').remove();
+                $(target).css('background', '#ffffff').find('div.image-container').fadeTo(0, 1);
+                $(target).find('div.image-container').hide();
                 $(target).append('<div class="item-text">' + html + '</div>');
                 for( var i = 0; i < args.length; i++ ) {
                     args[i](target);
                 }
             }
-
         });
     }
 
     if (debug === true) {
         $('body').append('<div id="debug"></div>');
         setInterval(function () {
-            colsNo = Math.floor(($(window).width() - 16) / boxWidth);
-            $('#debug').html('<p>Number of columns: ' + colsNo + '</p>');
-        }, 1000);
+            colsNo = Math.floor($('body').width() / boxWidth);
+            $('#debug').html('<p>Number of columns: ' + colsNo + '</p>' +
+                             '<p>Scrollbar presence: ' + checkScrollbar() + '</p>');
+            
+        }, 500);
     }
 
-    $(selector + ' .block').click(function () {
+    setInterval(function () {
+        if(!checkScrollbar()) {
+            $('body').css('padding-right', '20px');
+        } else {
+            $('body').css('padding-right', (20 - $.getScrollbarWidth()) + 'px');
+        }
+    }, 100);
+
+    if ($.browser.mozilla || $.browser.opera) {
+        loaderImg = 'loader.png';
+    } else {
+        loaderImg = 'loader.gif';
+    }
+
+    $(selector + ' .image-container').click(function () {
+
+        var box = $(this).parent();
+
+        $(box).css('background', '#bbb').append('<img id="loader"  src="images/' + loaderImg + '" alt="loading" />');
+        $(this).fadeTo(0, 0.7);
 
         checkColNo();
 
-        boxNo = $(this).data('no');
+        boxNo = box.data('no');
 
-        if ($(this).hasClass('big-block')) {
-            // clicked on expanded block
-            getStateBack();
-            $(this).removeAttr('style').removeClass('big-block').addClass('block');
-        } else {
+        $(selector + ' div').each(function () {
+            if ($(this).hasClass('big-block')) {
+                // found expanded block somewere on the page - need to collapse it
+                getStateBack();
+                $(this).removeAttr('style').removeClass('big-block').addClass('block');
+            }
+        });
 
-            $(selector + ' div').each(function () {
-                if ($(this).hasClass('big-block')) {
-                    // found expanded block somewere on the page - need to collapse it
-                    getStateBack();
-                    $(this).removeAttr('style').removeClass('big-block').addClass('block');
-                }
-            });
+        // arguments from third - callback functions when ajax is successful
+        getItemText(box, boxNo, expand, addExpandedMarkup, fillGaps, goToId);
 
-            // arguments from third - callback functions when ajax is successful
-            getItemText(this, boxNo, expand, addExpandedMarkup, fillGaps, goToId);
-        }
+    });
 
+    $(selector + ' #close').live('click', function () {
+        // clicked on expanded block
+        getStateBack();
+        $('.big-block').removeAttr('style').removeClass('big-block').addClass('block');
     });
 
 };

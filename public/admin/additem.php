@@ -11,8 +11,6 @@ if (isset($_POST['submit'])) {
     $item = new Item();
     $item->position = $itemCount + 1;
     $item->name = trim($_POST['name']);
-    $item->link_txt = trim($_POST['link_txt']);
-    $item->link_url = trim($_POST['link_url']);
     $item->item_text = trim($_POST['item_text']);
 
     $item->attach_file($_FILES['file_upload']);
@@ -36,13 +34,9 @@ include_layout_template('admin_header.php');
     <form action="additem.php" enctype="multipart/form-data" method="post">
         <label for="name">Item name:</label>
         <input id="name" type="text" name="name" />
-        <label for="link_txt">Text for link:</label>
-        <input type="text" id="link_txt" name="link_txt" />
-        <label for="link_url">Link URL:</label>
-        <input type="text" id="link_url" name="link_url" />
         <label for="item_text">Item Text:</label>
         <textarea id="item_text" name="item_text" rows="10" cols="30"></textarea>
-        <label for="file_upload">Photo file:</label>
+        <label for="file_upload">Thumbnail file:</label>
         <input id="file_upload" type="file" name="file_upload" />
 
         <input type="submit" name="submit" value="Add Item" />
@@ -52,7 +46,16 @@ include_layout_template('admin_header.php');
 
 <script type="text/javascript">
     //<![CDATA[
-    CKEDITOR.replace('item_text');
+    CKEDITOR.replace( 'item_text',
+        {
+            filebrowserBrowseUrl : '../../includes/ckfinder/ckfinder.html',
+            filebrowserImageBrowseUrl : '../../includes/ckfinder/ckfinder.html?Type=Images',
+            filebrowserFlashBrowseUrl : '../../includes/ckfinder/ckfinder.html?Type=Flash',
+            filebrowserUploadUrl : '../../includes/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl : '../../includes/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+            filebrowserFlashUploadUrl : '../../includes/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+        });
+
     //]]>
 </script>
 

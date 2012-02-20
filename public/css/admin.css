@@ -58,7 +58,7 @@ input, textarea {
 
 #item_text {
     width: 880px;
-    weight: 200px;
+    height: 200px;
 }
 
 a.list-add {
