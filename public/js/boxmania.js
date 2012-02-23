@@ -7,7 +7,8 @@ function boxmania(selector) {
         boxHeight = 205,
         expandedSize = 3,
         debug = false,
-        loaderImg;
+        loaderImg,
+        expanded = false;
 
     function checkScrollbar() {
         var docHeight = $(document).height();
@@ -29,6 +30,7 @@ function boxmania(selector) {
         });
         $('.item-text').remove();
         $('#header').remove();
+        $('.big-block').removeAttr('style').removeClass('big-block').addClass('block');
     }
 
     function checkClickedCol() {
@@ -116,8 +118,37 @@ function boxmania(selector) {
                 for( var i = 0; i < args.length; i++ ) {
                     args[i](target);
                 }
+                $(selector + ' .image-container').bind('click', function () {
+                    clickBoxHandler(this);
+                });
+                expanded = true;
             }
         });
+    }
+
+    function clickBoxHandler(target) {
+
+        $(selector + ' .image-container').unbind('click');
+
+        var box = $(target).parent();
+
+        $(box).css('background', '#bbb').append('<img id="loader"  src="images/' + loaderImg + '" alt="loading" />');
+        $(target).fadeTo(0, 0.7);
+
+        checkColNo();
+
+        boxNo = box.data('no');
+
+        $(selector + ' div').each(function () {
+            if ($(this).hasClass('big-block')) {
+                // found expanded block somewere on the page - need to collapse it
+                getStateBack();
+                $(this).removeAttr('style').removeClass('big-block').addClass('block');
+            }
+        });
+
+        // arguments from third - callback functions when ajax is successful
+        getItemText(box, boxNo, expand, addExpandedMarkup, fillGaps, goToId);
     }
 
     if (debug === true) {
@@ -138,40 +169,24 @@ function boxmania(selector) {
         }
     }, 100);
 
+    $(window).resize(function() {
+        if(expanded) { getStateBack() }
+    });
+
     if ($.browser.mozilla || $.browser.opera) {
         loaderImg = 'loader.png';
     } else {
         loaderImg = 'loader.gif';
     }
 
-    $(selector + ' .image-container').click(function () {
-
-        var box = $(this).parent();
-
-        $(box).css('background', '#bbb').append('<img id="loader"  src="images/' + loaderImg + '" alt="loading" />');
-        $(this).fadeTo(0, 0.7);
-
-        checkColNo();
-
-        boxNo = box.data('no');
-
-        $(selector + ' div').each(function () {
-            if ($(this).hasClass('big-block')) {
-                // found expanded block somewere on the page - need to collapse it
-                getStateBack();
-                $(this).removeAttr('style').removeClass('big-block').addClass('block');
-            }
-        });
-
-        // arguments from third - callback functions when ajax is successful
-        getItemText(box, boxNo, expand, addExpandedMarkup, fillGaps, goToId);
-
+    $(selector + ' .image-container').bind('click', function () {
+        clickBoxHandler(this);
     });
 
     $(selector + ' #close').live('click', function () {
         // clicked on expanded block
+        expanded = false;
         getStateBack();
-        $('.big-block').removeAttr('style').removeClass('big-block').addClass('block');
     });
 
 };
