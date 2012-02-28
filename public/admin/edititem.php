@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $item->name = trim($_POST['name']);
     $item->item_text = trim($_POST['item_text']);
 
-    if ($_FILES['file_upload']) {
+    if ($_FILES['file_upload']['name'] != "") {
         $item->delete_file($_POST['old_file']);
         $item->attach_file($_FILES['file_upload']);
         $item->move_file($_FILES['file_upload']);

@@ -1,7 +1,6 @@
-/* frontend block styling */
+/* general */
 body {
     margin: 0;
-    padding: 0;
     font-size: 62.5%;
     font-family: arial, sans-serif;
     background: #000000;
@@ -11,9 +10,25 @@ body {
 h1 {
     color: #fff;
     padding-bottom: 20px;
-    font-family: 'Ubuntu Condensed', sans-serif;
+    font-family: 'Istok Web', sans-serif;
 }
 
+a {
+    color: #f55b2c;
+    border-bottom: 1px solid #e0e2e1;
+    text-decoration: none;
+    margin-top: -1px;
+    padding: 1px;
+}
+
+a:hover {
+    color: #131313;
+    background-color: #fff7a5;
+    border-color: #f55b2c;
+    outline: none;
+}
+
+/* frontend block styling */
 .block {
     width: 220px;
     height: 195px;
@@ -74,6 +89,8 @@ h1 {
 .item-text {
     padding: 10px 20px;
     font-size: 1.2em;
+    overflow: hidden;
+    width: 640px;
 }
 
 #header .name {
@@ -87,12 +104,39 @@ h1 {
     cursor: pointer;
 }
 
+/* slideshow */
+.slideshow {
+    position:relative;
+    width: 640px;
+    margin: 0 20px;
+    height: 400px;
+    overflow: hidden;
+}
+
+.slideshow img {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:98;
+}
+
+.slideshow img.current {
+    z-index:100;
+}
+
+.slideshow img.last-current {
+    z-index:99;
+}
+
+
+/* footer */
 #footer {
     color: #fff;
     text-align: right;
     padding: 20px 40px 0 0;
 }
 
+/* debuger window */
 #debug {
     background: #fff;
     color: red;
