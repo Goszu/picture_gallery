@@ -105,7 +105,7 @@ function boxmania(selector) {
         $(target).find('.name').appendTo('#header');
     }
 
-    function getItemText(target, itemId) {
+    function getItemText(target, itemNo) {
         var args = Array.prototype.slice.apply(arguments, [2]);
         $.ajax({
             url: "get_item_text.php",
@@ -116,7 +116,7 @@ function boxmania(selector) {
                 $(target).css('background', '#ffffff').find('div.image-container').fadeTo(0, 1);
                 $(target).find('div.image-container').hide();
                 $(target).append('<div class="item-text">' + html + '</div>');
-                if ($(target).hasClass('slide')) PORTFOLIO.slideshow = slideshow();
+                if ($(target).hasClass('slide')) PORTFOLIO.slideshow = slideshow(itemNo);
                 for( var i = 0; i < args.length; i++ ) {
                     args[i](target);
                 }
@@ -153,7 +153,7 @@ function boxmania(selector) {
         getItemText(box, boxNo, expand, addExpandedMarkup, fillGaps, goToId);
     }
 
-    function slideshow() {
+    function slideshow(itemId) {
         //TODO if item has slideshow option - get images in sliseshow container and start it
         var controlsfadeTimeout,
             autoplayInterval,
@@ -191,8 +191,8 @@ function boxmania(selector) {
             };
 
         // get images into container
-        $('#bl-10 .item-text').before('<div class="slideshow"></div>');
-        $('#bl-10 .item-text img').each(function () {
+        $('#bl-' + itemId + ' .item-text').before('<div class="slideshow"></div>');
+        $('#bl-' + itemId + ' .item-text img').each(function () {
             $(this).appendTo('#bl-10 .slideshow');
         });
 
