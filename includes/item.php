@@ -5,7 +5,7 @@ require_once(LIB_PATH.DS.'database.php');
 class Item {
 
 	protected static $table_name="items";
-	protected static $db_fields = array('id', 'position', 'name', 'item_text', 'filename', 'size');
+	protected static $db_fields = array('id', 'position', 'name', 'item_text', 'filename', 'size', 'slideshow');
 
 	public $id;
     public $position;
@@ -13,6 +13,7 @@ class Item {
     public $item_text;
     public $filename;
     public $size;
+    public $slideshow;
 
     private $temp_path;
     protected $upload_dir = "images/block_thumbs";

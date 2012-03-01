@@ -13,11 +13,12 @@ function boxmania(selector) {
     function checkScrollbar() {
         var docHeight = $(document).height();
         var scroll    = $(window).height();
-        if(docHeight > scroll) return true;
+        if (docHeight > scroll) return true;
         else return false;
     }
 
     function getStateBack() {
+        $('.slideshow').remove();
         $('.big-block .name').insertAfter('.big-block .image-container');
         $('.big-block div.image-container').show();
         $('.moved').each(function () {
@@ -115,6 +116,7 @@ function boxmania(selector) {
                 $(target).css('background', '#ffffff').find('div.image-container').fadeTo(0, 1);
                 $(target).find('div.image-container').hide();
                 $(target).append('<div class="item-text">' + html + '</div>');
+                if ($(target).hasClass('slide')) PORTFOLIO.slideshow = slideshow();
                 for( var i = 0; i < args.length; i++ ) {
                     args[i](target);
                 }
@@ -149,6 +151,69 @@ function boxmania(selector) {
 
         // arguments from third - callback functions when ajax is successful
         getItemText(box, boxNo, expand, addExpandedMarkup, fillGaps, goToId);
+    }
+
+    function slideshow() {
+        //TODO if item has slideshow option - get images in sliseshow container and start it
+        var controlsfadeTimeout,
+            autoplayInterval,
+            api = {
+                next: function () {
+                    var current = $('.slideshow img.current');
+                    if ( current.length == 0 ) current = $('.slideshow img:last');
+                    var $next =  current.next('img').length ? current.next('img') : $('.slideshow img:first');
+                    current.addClass('last-current');
+                    $next.css({opacity: 0.0}).addClass('current').animate({opacity: 1.0}, 500, function() {
+                        current.removeClass('current last-current');
+                    });
+                },
+                autoplay: function (button) {
+                    button = $(button);
+                    if (button.hasClass('on')) {
+                        button.removeAttr('class').text('AUTOPLAY');
+                        clearInterval(autoplayInterval);
+                    } else {
+                        button.addClass('on').text('STOP');
+                        autoplayInterval = setInterval(function () {
+                            api.next();
+                        }, 3000 );
+                    }
+                },
+                showControls: function () {
+                    clearTimeout(controlsfadeTimeout);
+                    $('#controls').fadeIn(500);
+                },
+                hideControls: function () {
+                    controlsfadeTimeout = setTimeout(function () {
+                        $('#controls').fadeOut(500);
+                    }, 500);
+                }
+            };
+
+        // get images into container
+        $('#bl-10 .item-text').before('<div class="slideshow"></div>');
+        $('#bl-10 .item-text img').each(function () {
+            $(this).appendTo('#bl-10 .slideshow');
+        });
+
+        //create controls
+        $('.slideshow').append('<div id="controls"><span id="next">NEXT</span><span id="autoplay">AUTOPLAY</span></div>');
+
+        //attach handlers
+        $('.slideshow').live('mouseenter', function () {
+            api.showControls();
+        });
+        $('.slideshow').live('mouseleave', function () {
+            api.hideControls();
+        });
+        $('#next').live('click', function() {
+            api.next();
+        });
+        $('#autoplay').live('click', function() {
+            api.autoplay(this);
+        });
+
+        return api;
     }
 
     if (debug === true) {

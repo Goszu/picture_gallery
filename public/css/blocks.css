@@ -87,10 +87,9 @@ a:hover {
 }
 
 .item-text {
-    padding: 10px 20px;
+    margin: 10px 20px;
     font-size: 1.2em;
     overflow: hidden;
-    width: 640px;
 }
 
 #header .name {
@@ -127,7 +126,26 @@ a:hover {
 .slideshow img.last-current {
     z-index:99;
 }
+#controls {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background: #000;
+    opacity: 0.8;
+    z-index: 200;
+    padding: 10px;
+    color: #ffffff;
+    font-weight: bold;
+    display: none;
+}
 
+#next, #autoplay {
+    cursor: pointer;
+}
+
+#next {
+    margin-right: 10px;
+}
 
 /* footer */
 #footer {

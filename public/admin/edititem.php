@@ -7,6 +7,12 @@ if (isset($_POST['submit'])) {
     $item = Item::find_by_id(trim($_POST['item_id']));
     $item->name = trim($_POST['name']);
     $item->item_text = trim($_POST['item_text']);
+    if ($_POST['slideshow']) {
+        $item->slideshow = 1;
+    } else {
+        $item->slideshow = 0;
+    }
+
 
     if ($_FILES['file_upload']['name'] != "") {
         $item->delete_file($_POST['old_file']);
@@ -43,6 +49,8 @@ include_layout_template('admin_header.php');
         <input type="hidden" value="<?php echo $item->filename ?>" name="old_file" />
         <label for="file_upload">New thumbnail file: (old one will be deleted!)</label>
         <input id="file_upload" type="file" name="file_upload" />
+        <input id="slideshow" type="checkbox" name="slideshow" value="1" <?php if ($item->slideshow == 1) {?> checked="checked" <?php } ?>/>
+        <label for="slideshow">Enable slideshow</label>
         <input type="submit" name="submit" value="Update Item" />
     </form>
     <a href="listitems.php">Return to items list</a>

@@ -6,12 +6,16 @@ if (isset($_POST['submit'])) {
 
     $allItems = Item::find_all();
     $itemCount = sizeof($allItems);
-    echo $itemCount;
 
     $item = new Item();
     $item->position = $itemCount + 1;
     $item->name = trim($_POST['name']);
     $item->item_text = trim($_POST['item_text']);
+    if ($_POST['slideshow']) {
+        $item->slideshow = 1;
+    } else {
+        $item->slideshow = 0;
+    }
 
     $item->attach_file($_FILES['file_upload']);
 	if($item->save()) {
@@ -38,6 +42,8 @@ include_layout_template('admin_header.php');
         <textarea id="item_text" name="item_text" rows="10" cols="30"></textarea>
         <label for="file_upload">Thumbnail file:</label>
         <input id="file_upload" type="file" name="file_upload" />
+        <input id="slideshow" type="checkbox" name="slideshow" value="1" <?php if ($item->slideshow == 1) {?> checked="checked" <?php } ?>/>
+        <label for="slideshow">Enable slideshow</label>
 
         <input type="submit" name="submit" value="Add Item" />
     </form>
@@ -55,7 +61,6 @@ include_layout_template('admin_header.php');
             filebrowserImageUploadUrl : '../../includes/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
             filebrowserFlashUploadUrl : '../../includes/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
         });
-
     //]]>
 </script>
 

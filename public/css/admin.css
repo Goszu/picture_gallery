@@ -61,6 +61,12 @@ input, textarea {
     height: 200px;
 }
 
+#slideshow {
+    display: inline;
+    vertical-align: -3px;
+    margin: 8px 5px 15px 0;
+}
+
 a.list-add {
     margin-right: 10px;
 }

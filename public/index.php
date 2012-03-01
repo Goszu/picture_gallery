@@ -7,7 +7,7 @@
     foreach ($items as $item) {
         $index++ ?>
 
-        <div class="block" id="bl-<?php echo $index ?>" data-no="<?php echo $index ?>" data-id="<?php echo $item->id ?>">
+        <div class="block <?php if ($item->slideshow) { ?> slide<? } ?>" id="bl-<?php echo $index ?>" data-no="<?php echo $index ?>" data-id="<?php echo $item->id ?>">
             <div class="image-container">
                 <img src="images/block_thumbs/<?php echo $item->filename ?>" />
             </div>
