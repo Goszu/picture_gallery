@@ -6,19 +6,19 @@ function boxmania(selector) {
         boxWidth = 230,
         boxHeight = 205,
         expandedSize = 3,
-        debug = false,
+        debug = true,
         loaderImg,
-        expanded = false;
+        expanded = false,
+        api = {};
 
     function checkScrollbar() {
         var docHeight = $(document).height();
         var scroll    = $(window).height();
-        if (docHeight > scroll) return true;
-        else return false;
+        return docHeight > scroll;
     }
 
     function getStateBack() {
-        $('.slideshow').remove();
+        if (api.slideshow) {api.slideshow.removeAll()}
         $('.big-block .name').insertAfter('.big-block .image-container');
         $('.big-block div.image-container').show();
         $('.moved').each(function () {
@@ -41,7 +41,7 @@ function boxmania(selector) {
             if ((boxNo - colIterator) % colsNo === 0) {
                 return colIterator;
             }
-        } while (colIterator <= 7);
+        } while (colIterator < 8);
     }
 
     function checkColNo() {
@@ -116,7 +116,7 @@ function boxmania(selector) {
                 $(target).css('background', '#ffffff').find('div.image-container').fadeTo(0, 1);
                 $(target).find('div.image-container').hide();
                 $(target).append('<div class="item-text">' + html + '</div>');
-                if ($(target).hasClass('slide')) PORTFOLIO.slideshow = slideshow(itemNo);
+                if ($(target).hasClass('slide')) {api.slideshow = slideshow(itemNo)}
                 for( var i = 0; i < args.length; i++ ) {
                     args[i](target);
                 }
@@ -154,39 +154,44 @@ function boxmania(selector) {
     }
 
     function slideshow(itemId) {
-        //TODO if item has slideshow option - get images in sliseshow container and start it
         var controlsfadeTimeout,
             autoplayInterval,
-            api = {
+            slideshowApi = {
                 next: function () {
+                    next.unbind('click');
                     var current = $('.slideshow img.current');
-                    if ( current.length == 0 ) current = $('.slideshow img:last');
                     var $next =  current.next('img').length ? current.next('img') : $('.slideshow img:first');
                     current.addClass('last-current');
                     $next.css({opacity: 0.0}).addClass('current').animate({opacity: 1.0}, 500, function() {
                         current.removeClass('current last-current');
+                        next.bind('click', function() {
+                            slideshowApi.next();
+                        });
                     });
                 },
-                autoplay: function (button) {
-                    button = $(button);
-                    if (button.hasClass('on')) {
-                        button.removeAttr('class').text('AUTOPLAY');
+                autoplay: function () {
+                    if (autoplay.text() === 'STOP') {
+                        autoplay.text('AUTOPLAY');
                         clearInterval(autoplayInterval);
                     } else {
-                        button.addClass('on').text('STOP');
+                        autoplay.text('STOP');
                         autoplayInterval = setInterval(function () {
-                            api.next();
+                            slideshowApi.next();
                         }, 3000 );
                     }
                 },
                 showControls: function () {
                     clearTimeout(controlsfadeTimeout);
-                    $('#controls').fadeIn(500);
+                    controls.fadeIn(500);
                 },
                 hideControls: function () {
                     controlsfadeTimeout = setTimeout(function () {
-                        $('#controls').fadeOut(500);
+                        controls.fadeOut(500);
                     }, 500);
+                },
+                removeAll: function () {
+                    $('.slideshow').remove();
+                    clearInterval(autoplayInterval);
                 }
             };
 
@@ -195,25 +200,32 @@ function boxmania(selector) {
         $('#bl-' + itemId + ' .item-text img').each(function () {
             $(this).appendTo('#bl-10 .slideshow');
         });
+        $('#bl-' + itemId + ' .item-text img:last').addClass('current');
 
         //create controls
         $('.slideshow').append('<div id="controls"><span id="next">NEXT</span><span id="autoplay">AUTOPLAY</span></div>');
 
+        //asign jquery wrapped DOM elements into variables
+        var controls = $('#controls'),
+            autoplay = $('#autoplay'),
+            next = $('#next'),
+            slideshow = $('.slideshow');
+
         //attach handlers
-        $('.slideshow').live('mouseenter', function () {
-            api.showControls();
+        slideshow.bind('mouseenter', function () {
+            slideshowApi.showControls();
         });
-        $('.slideshow').live('mouseleave', function () {
-            api.hideControls();
+        slideshow.bind('mouseleave', function () {
+            slideshowApi.hideControls();
         });
-        $('#next').live('click', function() {
-            api.next();
+        next.bind('click', function() {
+            slideshowApi.next();
         });
-        $('#autoplay').live('click', function() {
-            api.autoplay(this);
+        autoplay.bind('click', function() {
+            slideshowApi.autoplay();
         });
 
-        return api;
+        return slideshowApi;
     }
 
     if (debug === true) {
@@ -254,4 +266,5 @@ function boxmania(selector) {
         getStateBack();
     });
 
-};
+    return api;
+}

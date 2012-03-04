@@ -9,7 +9,7 @@
 
         <div class="block <?php if ($item->slideshow) { ?> slide<? } ?>" id="bl-<?php echo $index ?>" data-no="<?php echo $index ?>" data-id="<?php echo $item->id ?>">
             <div class="image-container">
-                <img src="images/block_thumbs/<?php echo $item->filename ?>" />
+                <img alt="<?php echo $item->name ?>" src="images/block_thumbs/<?php echo $item->filename ?>" />
             </div>
             <div class="name">
                 <?php echo $item->name ?>
@@ -24,7 +24,7 @@
 <script type="text/javascript">
 // <[CDATA[
     $(function () {
-        boxmania('#pane');
+        boxes = boxmania('#pane');
     });
 // ]]>
 </script>

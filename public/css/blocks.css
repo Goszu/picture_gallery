@@ -110,6 +110,7 @@ a:hover {
     margin: 0 20px;
     height: 400px;
     overflow: hidden;
+    border-radius: 5px 5px 5px 5px;
 }
 
 .slideshow img {
@@ -131,12 +132,13 @@ a:hover {
     bottom: 0px;
     right: 0px;
     background: #000;
-    opacity: 0.8;
+    opacity: 0.7;
     z-index: 200;
     padding: 10px;
     color: #ffffff;
     font-weight: bold;
     display: none;
+    border-radius: 5px 0 0 0;
 }
 
 #next, #autoplay {
@@ -161,7 +163,7 @@ a:hover {
     position: fixed;
     bottom: 5px;
     right: 5px;
-    width: 140px;
+    width: 160px;
     padding: 0 10px;
     font-size: 1.2em;
 }

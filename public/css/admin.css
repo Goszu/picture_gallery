@@ -56,11 +56,6 @@ input, textarea {
     margin-bottom: 10px;
 }
 
-#item_text {
-    width: 880px;
-    height: 200px;
-}
-
 #slideshow {
     display: inline;
     vertical-align: -3px;
