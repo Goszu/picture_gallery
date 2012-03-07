@@ -3,7 +3,7 @@ body {
     margin: 0;
     font-size: 62.5%;
     font-family: arial, sans-serif;
-    background: #000000;
+    background: #333;
     padding: 20px;
 }
 
@@ -46,9 +46,10 @@ a:hover {
 .big-block {
     overflow: visible;
     float: left;
-    background: #ffffff;
     margin: 0 10px 10px 0;
     border-radius: 5px;
+    border: 70px solid #fff;
+    background-image: url(../images/box_bg.png);
 
 }
 
@@ -77,29 +78,34 @@ a:hover {
 
 .big-block .image-container {
     height: auto;
-    margin: 10px 20px;
+    margin: 10px 60px;
 }
 
 .name {
     padding: 0 20px;
     font-size: 1.2em;
-    font-family: 'Ubuntu Condensed', sans-serif;
+    font-family: 'Istok Web',sans-serif;
+    color: #333;
 }
 
 .item-text {
-    margin: 10px 20px;
-    font-size: 1.2em;
+    margin: 12px 60px 60px;
     overflow: hidden;
+    font-size: 1.2em;
+    line-height: 1.4;
+    color: #333;
 }
 
 #header .name {
-    padding: 15px 20px;
-    font-size: 2.4em;
+    padding: 60px 60px 0;
+    font-size: 1.6em;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #close {
     float: right;
-    margin: 20px;
+    margin: -15px;
     cursor: pointer;
 }
 

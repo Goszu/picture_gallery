@@ -6,7 +6,8 @@ function boxmania(selector) {
         boxWidth = 230,
         boxHeight = 205,
         expandedSize = 3,
-        debug = true,
+        boxBorder = 70,
+        debug = false,
         loaderImg,
         expanded = false,
         api = {};
@@ -53,9 +54,9 @@ function boxmania(selector) {
         var leftOffset = 0,
             topOffset = 0,
             clickedCol = checkClickedCol(),
-            expandedHeightInBoxesNo = Math.ceil($(expandedBox).height() / boxHeight);
+            expandedHeightInBoxesNo = Math.ceil(($(expandedBox).height() + (boxBorder * 2)) / boxHeight);
 
-        $(expandedBox).height((expandedHeightInBoxesNo * boxHeight) - 10);
+        $(expandedBox).height(((expandedHeightInBoxesNo * boxHeight) - 10) - (boxBorder * 2));
 
         if (clickedCol === 1) {return;}
 
@@ -91,8 +92,8 @@ function boxmania(selector) {
 
     function expand(target) {
         $(target).css({
-            width: (boxWidth * expandedSize) - 10,
-            'min-height': '400px'
+            width: ((boxWidth * expandedSize) - 10) - (boxBorder * 2),
+            'min-height': '260px'
         }).removeClass('block').addClass('big-block');
     }
 
@@ -101,7 +102,7 @@ function boxmania(selector) {
     }
 
     function addExpandedMarkup(target) {
-        $(target).prepend('<div id="header"><img src="images/close.gif" id="close"/></div>');
+        $(target).prepend('<div id="header"><img src="images/close.png" id="close"/></div>');
         $(target).find('.name').appendTo('#header');
     }
 
@@ -113,7 +114,7 @@ function boxmania(selector) {
             data: {item_id : $(target).data('id')},
             success: function(html) {
                 $('#loader').remove();
-                $(target).css('background', '#ffffff').find('div.image-container').fadeTo(0, 1);
+                $(target).css('background-color', '#fff').find('div.image-container').fadeTo(0, 1);
                 $(target).find('div.image-container').hide();
                 $(target).append('<div class="item-text">' + html + '</div>');
                 if ($(target).hasClass('slide')) {api.slideshow = slideshow(itemNo)}
@@ -134,7 +135,7 @@ function boxmania(selector) {
 
         var box = $(target).parent();
 
-        $(box).css('background', '#bbb').append('<img id="loader"  src="images/' + loaderImg + '" alt="loading" />');
+        $(box).css('background-color', '#bbb').append('<img id="loader"  src="images/' + loaderImg + '" alt="loading" />');
         $(target).fadeTo(0, 0.7);
 
         checkColNo();
