@@ -8,7 +8,6 @@ function boxmania(selector) {
         expandedSize = 3,
         boxBorder = 70,
         debug = false,
-        loaderImg,
         expanded = false,
         api = {};
 
@@ -98,7 +97,7 @@ function boxmania(selector) {
     }
 
     function goToId(target){
-        $('html,body').animate({scrollTop: $('#' + $(target).attr('id')).offset().top - 20},'slow');
+        $('html,body').animate({scrollTop: $('#' + $(target).attr('id')).offset().top - 210},'slow');
     }
 
     function addExpandedMarkup(target) {
@@ -135,8 +134,8 @@ function boxmania(selector) {
 
         var box = $(target).parent();
 
-        $(box).css('background-color', '#bbb').append('<img id="loader"  src="images/' + loaderImg + '" alt="loading" />');
-        $(target).fadeTo(0, 0.7);
+        $(box).css('background-color', '#bbb').append('<img id="loader"  src="images/loader.gif" alt="loading" />');
+        $(target).fadeTo(0, 0.4);
 
         checkColNo();
 
@@ -155,43 +154,37 @@ function boxmania(selector) {
     }
 
     function slideshow(itemId) {
-        var controlsfadeTimeout,
-            autoplayInterval,
+        var autoplayInterval,
+            i = 1,
+            length = $('#bl-' + itemId + ' .item-text img').length,
+            nextImg,
+            current,
+            frozen = false,
             slideshowApi = {
-                next: function () {
-                    next.unbind('click');
-                    var current = $('.slideshow img.current');
-                    var $next =  current.next('img').length ? current.next('img') : $('.slideshow img:first');
+                next: function (imgNumber) {
+                    if (frozen === true) return;
+                    current = $('.slideshow img.current');
+                    if (imgNumber !== undefined) {
+                        clearInterval(autoplayInterval);
+                        nextImg = $('.slideshow img:nth-child(' + imgNumber + ')');
+                        if (nextImg.hasClass('current')) return;
+                        frozen = true;
+                    } else {
+                        nextImg =  current.next('img').length ? current.next('img') : $('.slideshow img:first');
+                    }
                     current.addClass('last-current');
-                    $next.css({opacity: 0.0}).addClass('current').animate({opacity: 1.0}, 500, function() {
+                    nextImg.css({opacity: 0.0}).addClass('current').animate({opacity: 1.0}, 500, function() {
                         current.removeClass('current last-current');
-                        next.bind('click', function() {
-                            slideshowApi.next();
-                        });
+                        frozen = false;
                     });
                 },
                 autoplay: function () {
-                    if (autoplay.text() === 'STOP') {
-                        autoplay.text('AUTOPLAY');
-                        clearInterval(autoplayInterval);
-                    } else {
-                        autoplay.text('STOP');
-                        autoplayInterval = setInterval(function () {
-                            slideshowApi.next();
-                        }, 3000 );
-                    }
-                },
-                showControls: function () {
-                    clearTimeout(controlsfadeTimeout);
-                    controls.fadeIn(500);
-                },
-                hideControls: function () {
-                    controlsfadeTimeout = setTimeout(function () {
-                        controls.fadeOut(500);
-                    }, 500);
+                    autoplayInterval = setInterval(function () {
+                        slideshowApi.next();
+                    }, 3000 );
                 },
                 removeAll: function () {
-                    $('.slideshow').remove();
+                    $('.slideshow, #numbers').remove();
                     clearInterval(autoplayInterval);
                 }
             };
@@ -201,30 +194,21 @@ function boxmania(selector) {
         $('#bl-' + itemId + ' .item-text img').each(function () {
             $(this).appendTo('#bl-10 .slideshow');
         });
+
         $('#bl-' + itemId + ' .item-text img:last').addClass('current');
 
-        //create controls
-        $('.slideshow').append('<div id="controls"><span id="next">NEXT</span><span id="autoplay">AUTOPLAY</span></div>');
+        //create navigation
+        $('.slideshow').after('<div id="numbers"></div>');
+        for(i; i <= length; i +=1) {
+            $('#numbers').append('<span>' + i + '</span>');
+        }
 
-        //asign jquery wrapped DOM elements into variables
-        var controls = $('#controls'),
-            autoplay = $('#autoplay'),
-            next = $('#next'),
-            slideshow = $('.slideshow');
+        //attach click handlers
+        $('#numbers').delegate('span', 'click', function () {
+            slideshowApi.next($(this).text());
+        });
 
-        //attach handlers
-        slideshow.bind('mouseenter', function () {
-            slideshowApi.showControls();
-        });
-        slideshow.bind('mouseleave', function () {
-            slideshowApi.hideControls();
-        });
-        next.bind('click', function() {
-            slideshowApi.next();
-        });
-        autoplay.bind('click', function() {
-            slideshowApi.autoplay();
-        });
+        slideshowApi.autoplay();
 
         return slideshowApi;
     }
@@ -250,12 +234,6 @@ function boxmania(selector) {
     $(window).resize(function() {
         if(expanded) { getStateBack() }
     });
-
-    if ($.browser.mozilla || $.browser.opera) {
-        loaderImg = 'loader.png';
-    } else {
-        loaderImg = 'loader.gif';
-    }
 
     $(selector + ' .image-container').bind('click', function () {
         clickBoxHandler(this);
