@@ -29,6 +29,10 @@ ul {
     list-style: none;
 }
 
+.dblock {
+    display: block;
+}
+
 #header {
     background: #bbbbbb;
     padding: 10px;

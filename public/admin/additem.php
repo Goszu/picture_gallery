@@ -16,6 +16,7 @@ if (isset($_POST['submit'])) {
     } else {
         $item->slideshow = 0;
     }
+    $item->bcolor = trim($_POST['bcolor']);
 
     $item->attach_file($_FILES['file_upload']);
 	if($item->save()) {
@@ -44,6 +45,8 @@ include_layout_template('admin_header.php');
         <input id="file_upload" type="file" name="file_upload" />
         <input id="slideshow" type="checkbox" name="slideshow" value="1" <?php if ($item->slideshow == 1) {?> checked="checked" <?php } ?>/>
         <label for="slideshow">Enable slideshow</label>
+        <label for="bcolor">Background color</label>
+        <input id="bcolor" type="text" name="bcolor" />
 
         <input type="submit" name="submit" value="Add Item" />
     </form>

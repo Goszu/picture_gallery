@@ -7,7 +7,9 @@
     foreach ($items as $item) {
         $index++ ?>
 
-        <div class="block <?php if ($item->slideshow) { ?> slide<? } ?>" id="bl-<?php echo $index ?>" data-no="<?php echo $index ?>" data-id="<?php echo $item->id ?>">
+        <div <?php if ($item->bcolor != null) { ?> style="border-color: #<? echo $item->bcolor ?>" <?php } ?>
+            class="block <?php if ($item->slideshow) { ?> slide<?php } ?>" id="bl-<?php echo $index ?>"
+            data-no="<?php echo $index ?>" data-id="<?php echo $item->id ?>">
             <div class="image-container">
                 <img alt="<?php echo $item->name ?>" src="images/block_thumbs/<?php echo $item->filename ?>" />
             </div>

@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
     } else {
         $item->slideshow = 0;
     }
-
+    $item->bcolor = trim($_POST['bcolor']);
 
     if ($_FILES['file_upload']['name'] != "") {
         $item->delete_file($_POST['old_file']);
@@ -51,6 +51,9 @@ include_layout_template('admin_header.php');
         <input id="file_upload" type="file" name="file_upload" />
         <input id="slideshow" type="checkbox" name="slideshow" value="1" <?php if ($item->slideshow == 1) {?> checked="checked" <?php } ?>/>
         <label for="slideshow">Enable slideshow</label>
+        <label class="dblock" for="bcolor">Background color</label>
+        <input id="bcolor" type="text" value="<?php if ($item->bcolor != null) echo $item->bcolor ?>" name="bcolor" />
+
         <input type="submit" name="submit" value="Update Item" />
     </form>
     <a href="listitems.php">Return to items list</a>

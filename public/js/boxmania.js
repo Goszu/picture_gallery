@@ -9,7 +9,8 @@ function boxmania(selector) {
         boxBorder = 70,
         debug = false,
         expanded = false,
-        api = {};
+        api = {},
+        windowWidth = $(window).width();
 
     function checkScrollbar() {
         var docHeight = $(document).height();
@@ -18,6 +19,7 @@ function boxmania(selector) {
     }
 
     function getStateBack() {
+        var bigBlockStyle = $('.big-block').attr('style');
         if (api.slideshow) {api.slideshow.removeAll()}
         $('.big-block .name').insertAfter('.big-block .image-container');
         $('.big-block div.image-container').show();
@@ -31,7 +33,10 @@ function boxmania(selector) {
         });
         $('.item-text').remove();
         $('#header').remove();
-        $('.big-block').removeAttr('style').removeClass('big-block').addClass('block');
+
+        bigBlockStyle = bigBlockStyle.substr(bigBlockStyle.search('border'), 30);
+
+        $('.big-block').attr('style', bigBlockStyle).removeClass('big-block').addClass('block');
     }
 
     function checkClickedCol() {
@@ -192,7 +197,7 @@ function boxmania(selector) {
         // get images into container
         $('#bl-' + itemId + ' .item-text').before('<div class="slideshow"></div>');
         $('#bl-' + itemId + ' .item-text img').each(function () {
-            $(this).appendTo('#bl-10 .slideshow');
+            $(this).appendTo('#bl-' + itemId + ' .slideshow');
         });
 
         $('#bl-' + itemId + ' .item-text img:last').addClass('current');
@@ -232,7 +237,10 @@ function boxmania(selector) {
     }, 100);
 
     $(window).resize(function() {
-        if(expanded) { getStateBack() }
+        if(expanded && windowWidth !== $(window).width()) {
+            getStateBack();
+            windowWidth = $(window).width();
+        }
     });
 
     $(selector + ' .image-container').bind('click', function () {
