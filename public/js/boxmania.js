@@ -102,7 +102,7 @@ function boxmania(selector) {
     }
 
     function goToId(target){
-        $('html,body').animate({scrollTop: $('#' + $(target).attr('id')).offset().top - 210},'slow');
+        $('html,body').animate({scrollTop: $('#' + $(target).attr('id')).offset().top -8},'slow');
     }
 
     function addExpandedMarkup(target) {
