@@ -65,6 +65,29 @@ a:hover, #numbers span:hover {
     overflow: hidden;
 }
 
+#page-header {
+    overflow: hidden;
+}
+
+#company {
+    float: left;
+}
+
+#social {
+    float: right;
+    padding: 10px 40px 0 0;
+}
+
+#social a {
+    border: 0px none;
+    outline: none;
+}
+
+#social a:hover {
+    border: 0px none;
+    background: none;
+}
+
 .image-container img {
     width: 100%;
     cursor: pointer;

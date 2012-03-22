@@ -6,4 +6,11 @@
     <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<h1>CompanyName</h1>
+<div id="page-header">
+    <h1 id="company">CompanyName</h1>
+    <div id="social">
+        <a href="#"><img src="../images/fb_ico.png" alt="facebook" /></a>
+        <a href="#"><img src="../images/twe_ico.png" alt="tweeter" /></a>
+        <a href="#"><img src="../images/in_ico.png" alt="linkedin" /></a>
+    </div>
+</div>
