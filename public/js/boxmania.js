@@ -53,6 +53,20 @@ function boxmania(selector) {
         colsNo = Math.floor($('body').width() / boxWidth);
     }
 
+    function alignRight(selector, adjust) {
+        var adj = adjust || 0;
+
+        checkColNo();
+        $(selector).css('float', 'left');
+        if (colsNo > 3) {
+            $(selector).css('padding-left', (((colsNo * boxWidth) - $(selector).width() - 10 ) + adj));
+        } else if (colsNo === 3) {
+            $(selector).css('padding-left', (((3 * boxWidth) - $(selector).width() - 10 ) + adj));
+        } else {
+            $(selector).css({'float': 'right', 'padding-left': 0});
+        }
+    }
+
     function fillGaps(expandedBox) {
 
         var leftOffset = 0,
@@ -150,7 +164,6 @@ function boxmania(selector) {
             if ($(this).hasClass('big-block')) {
                 // found expanded block somewere on the page - need to collapse it
                 getStateBack();
-                $(this).removeAttr('style').removeClass('big-block').addClass('block');
             }
         });
 
@@ -236,11 +249,18 @@ function boxmania(selector) {
         }
     }, 100);
 
+    alignRight('#footer');
+    setTimeout(function () {
+        alignRight('#social', -$('#company').width());
+    }, 300);
+
     $(window).resize(function() {
         if(expanded && windowWidth !== $(window).width()) {
             getStateBack();
             windowWidth = $(window).width();
         }
+        alignRight('#footer');
+        alignRight('#social', -$('#company').width());
     });
 
     $(selector + ' .image-container').bind('click', function () {

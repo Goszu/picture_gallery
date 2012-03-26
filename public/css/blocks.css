@@ -75,7 +75,9 @@ a:hover, #numbers span:hover {
 
 #social {
     float: right;
-    padding: 10px 40px 0 0;
+    padding-top: 12px;
+    width: 110px;
+    text-align: right;
 }
 
 #social a {
@@ -168,8 +170,10 @@ a:hover, #numbers span:hover {
 /* footer */
 #footer {
     color: #fff;
+    float: right;
+    padding-top: 20px;
+    width: 160px;
     text-align: right;
-    padding: 20px 40px 0 0;
 }
 
 /* debuger window */
