@@ -256,6 +256,7 @@ function boxmania(selector) {
 
     $(window).resize(function() {
         if(expanded && windowWidth !== $(window).width()) {
+            expanded = false;
             getStateBack();
             windowWidth = $(window).width();
         }

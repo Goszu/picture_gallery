@@ -124,7 +124,6 @@ a:hover, #numbers span:hover {
 #header .name {
     padding: 60px 60px 0;
     font-size: 1.6em;
-    font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -172,7 +171,7 @@ a:hover, #numbers span:hover {
     color: #fff;
     float: right;
     padding-top: 20px;
-    width: 160px;
+    width: 220px;
     text-align: right;
 }
 
