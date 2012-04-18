@@ -131,18 +131,36 @@ function boxmania(selector) {
             type: "POST",
             data: {item_id : $(target).data('id')},
             success: function(html) {
-                $('#loader').remove();
-                $(target).css('background-color', '#fff').find('div.image-container').fadeTo(0, 1);
-                $(target).find('div.image-container').hide();
-                $(target).append('<div class="item-text">' + html + '</div>');
-                if ($(target).hasClass('slide')) {api.slideshow = slideshow(itemNo)}
-                for( var i = 0; i < args.length; i++ ) {
-                    args[i](target);
+
+                //TODO Test form insertion and refactor
+
+                function goOn(html_content) {
+                    $('#loader').remove();
+                    $(target).css('background-color', '#fff').find('div.image-container').fadeTo(0, 1);
+                    $(target).find('div.image-container').hide();
+                    $(target).append('<div class="item-text">' + html_content + '</div>');
+                    if ($(target).hasClass('slide')) {api.slideshow = slideshow(itemNo)}
+                    for( var i = 0; i < args.length; i++ ) {
+                        args[i](target);
+                    }
+                    $(selector + ' .image-container').bind('click', function () {
+                        clickBoxHandler(this);
+                    });
+                    expanded = true;
                 }
-                $(selector + ' .image-container').bind('click', function () {
-                    clickBoxHandler(this);
-                });
-                expanded = true;
+
+                if (/__FORM__/.test(html)) {
+                    $.ajax({
+                        url: "mail_form.php",
+                        type: "GET",
+                        success: function (form_html) {
+                            html.replace(/__FORM__/, form_html);
+                            goOn(html);
+                        }
+                    });
+                } else {
+                    goOn(html);
+                }
             }
         });
     }
