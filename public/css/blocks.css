@@ -186,3 +186,21 @@ a:hover, #numbers span:hover {
     padding: 0 10px;
     font-size: 1.2em;
 }
+
+/* contact form */
+#form #message {
+    width: 405px;
+    height: 120px;
+}
+#form input, #form textarea  {
+    font-size: 11px;
+    color: #333;
+    border: 0px none;
+    background: #e5e5e5;
+    margin-bottom: 10px;
+    padding: 4px;
+
+}
+#form a {
+    margin-right: 4px;
+}

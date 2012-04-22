@@ -134,7 +134,7 @@ function boxmania(selector) {
 
                 //TODO Test form insertion and refactor
 
-                function goOn(html_content) {
+                function goOn(html_content, formPresent) {
                     $('#loader').remove();
                     $(target).css('background-color', '#fff').find('div.image-container').fadeTo(0, 1);
                     $(target).find('div.image-container').hide();
@@ -147,6 +147,8 @@ function boxmania(selector) {
                         clickBoxHandler(this);
                     });
                     expanded = true;
+
+                    if (formPresent) { PORTFOLIO.mailFunctionality(); }
                 }
 
                 if (/__FORM__/.test(html)) {
@@ -154,12 +156,12 @@ function boxmania(selector) {
                         url: "mail_form.php",
                         type: "GET",
                         success: function (form_html) {
-                            html.replace(/__FORM__/, form_html);
-                            goOn(html);
+                            html = html.replace(/__FORM__/, form_html);
+                            goOn(html, true);
                         }
                     });
                 } else {
-                    goOn(html);
+                    goOn(html, false);
                 }
             }
         });

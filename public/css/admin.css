@@ -33,6 +33,12 @@ ul {
     display: block;
 }
 
+.message {
+    background: none repeat scroll 0 0 #FFF7A5;
+    color: #131313;
+    padding: 6px;
+}
+
 #header {
     background: #bbbbbb;
     padding: 10px;
@@ -64,6 +70,19 @@ input, textarea {
     display: inline;
     vertical-align: -3px;
     margin: 8px 5px 15px 0;
+}
+
+#img-browse {
+    overflow: hidden;
+}
+
+#thumbnail {
+    width: 600px;
+    float: left;
+}
+
+#browse {
+    float: left;
 }
 
 a.list-add {

@@ -1,3 +1,6 @@
+var PORTFOLIO = {};
+
+
 /*! Copyright (c) 2008 Brandon Aaron (brandon.aaron@gmail.com || http://brandonaaron.net)
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
  * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
@@ -30,8 +33,18 @@
     };
 })(jQuery);
 
+PORTFOLIO.browseServer = function () {
+    // You can use the "CKFinder" class to render CKFinder in a page:
+    var finder = new CKFinder();
+    finder.basePath = '../../includes/ckfinder';	// The path for the installation of CKFinder (default = "/ckfinder/").
+    finder.selectActionFunction = PORTFOLIO.setFileField;
+    finder.popup();
+};
 
-var PORTFOLIO = {};
+// This is a sample function which is called when a file is selected in CKFinder.
+PORTFOLIO.setFileField = function ( fileUrl ) {
+    document.getElementById( 'thumbnail' ).value = fileUrl;
+};
 
 PORTFOLIO.sortItems = function () {
     $("ul.sortable").sortable({ opacity: 0.8, cursor: 'move', update: function() {
@@ -46,5 +59,51 @@ PORTFOLIO.sortItems = function () {
             }, 2000);
         });
     }
+    });
+};
+
+PORTFOLIO.mailFunctionality = function () {
+    var name = $('#name'),
+        tel = $('#tel'),
+        mail = $('#mail'),
+        message = $('#message');
+
+    $('#form').delegate('#send-mail', 'click', function() {
+        $.post("mail.php", { imie: $("#name").val(), tel: $("#tel").val(), mail: $("#mail").val(), wiad: $("#message").val() }, function(data) {
+            $('#form').after('<div id="confirmation">' + data + '</div>');
+            setTimeout(function () {
+                $('#confirmation').fadeOut('fast', function () {
+                    $(this).remove();
+                });
+            }, 2000);
+        });
+        return false;
+    });
+    $('#form').delegate('#reset-form', 'click', function() {
+        document.getElementById('form').reset();
+    });
+    name.focus(function () {
+        if (this.value =='Your Name:')  { this.value='' }
+    });
+    tel.focus(function () {
+        if(this.value =='Telephone no.:') { this.value='' }
+    });
+    mail.focus(function () {
+        if(this.value =='E-mail:' ) { this.value='' }
+    });
+    message.focus(function () {
+        if(this.value =='Message:' ) { this.value='' }
+    });
+    name.blur(function () {
+        if(this.value=='') { this.value='Your Name:' }
+    });
+    tel.blur(function () {
+        if(this.value=='') { this.value='Telephone no.:' }
+    });
+    mail.blur(function () {
+        if(this.value=='') { this.value='E-mail:' }
+    });
+    message.blur(function () {
+        if(this.value=='') { this.value='Message:' }
     });
 };

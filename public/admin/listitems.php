@@ -19,8 +19,6 @@ include_layout_template('admin_header.php');
                     <input type="checkbox" value="<?php echo $item->id ?>" name="iid[]" />
                     <span><?php echo $item->id ?> </span>
                     <span><strong>Name: </strong><?php echo $item->name ?> </span>
-                    <span><strong>Filename: </strong><?php echo $item->filename ?> </span>
-                    <span><strong>Size: </strong><?php echo $item->size_as_text() ?></span>
                     <span><a href="edititem.php?itemid=<?php echo $item->id ?>">Edit</a></span>
                 </li>
             <?php } ?>

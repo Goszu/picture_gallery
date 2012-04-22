@@ -11,7 +11,7 @@ if (strtoupper(substr(PHP_OS,0,3)=='WIN')) {
 }
 
 /* All form fields are automatically passed to the PHP script through the array $HTTP_POST_VARS. */
-$email = "marcin@nserwis.com";
+$email = "gerry@pattersondesignassociates.co.uk";
 $mail = $_POST['mail'];
 $subject = "e-mail from website";
 $imie = $_POST['imie'];
@@ -30,16 +30,15 @@ $headers .= 'Reply-To: <'.$mail.'>'.$eol;
 /* PHP form validation: the script checks that the Email field contains a valid email address and the Subject field isn't empty. preg_match performs a regular expression match. It's a very powerful PHP function to validate form fields and other strings - see PHP manual for details. */
 
 if (!preg_match("/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/", $mail)) {
-	echo "<h4 style='text-align: center'><br /><br /><br /><br />Wrong e-mail address<br /><br /></h4>";
-	echo "<p style='text-align: center'><a href='javascript:location.reload()'>Try again</a><br /><br /><br /><br /></p>";
+	echo "<h4 style='text-align: center'>Wrong e-mail address. Try again.</h4>";
 } 
 														
 /* Sends the mail and outputs the "Thank you" string if the mail is successfully sent, or the error string otherwise. */
 
 elseif (mail($email,$subject,$message, $headers)) {
-	echo "<h4 style='text-align: center'><br /><br /><br /><br /> Thank You <br /> for your message<br /><br /><br /><br /><br /></h4>";
+	echo "<h4 style='text-align: center'>Thank You for your message.</h4>";
 } else {
-	echo "<h4 style='text-align: center'><br /><br /><br /><br /> Failed <br /> to send the message<br /><br /><br /><br /><br /></h4>";
+	echo "<h4 style='text-align: center'> Failed to send the message.</h4>";
 }
 															
 ?>

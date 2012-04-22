@@ -1,5 +1,5 @@
 RewriteEngine on
 RewriteBase /
 RewriteCond %{REQUEST_URI} !^.*/public/.*$
-RewriteCond %{SCRIPT_FILENAME} !\.(js|css|gif|jpg|png)$ [NC]
+RewriteCond %{SCRIPT_FILENAME} !((\.(js|css|gif|jpg|png|html))|(connector.php))$ [NC]
 RewriteRule ^(.*)$ /gerry/public/$1
