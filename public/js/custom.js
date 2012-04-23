@@ -83,27 +83,27 @@ PORTFOLIO.mailFunctionality = function () {
         document.getElementById('form').reset();
     });
     name.focus(function () {
-        if (this.value =='Your Name:')  { this.value='' }
+        if (this.value =='Name')  { this.value='' }
     });
     tel.focus(function () {
-        if(this.value =='Telephone no.:') { this.value='' }
+        if(this.value =='Telephone') { this.value='' }
     });
     mail.focus(function () {
-        if(this.value =='E-mail:' ) { this.value='' }
+        if(this.value =='Email' ) { this.value='' }
     });
     message.focus(function () {
-        if(this.value =='Message:' ) { this.value='' }
+        if(this.value =='Message' ) { this.value='' }
     });
     name.blur(function () {
-        if(this.value=='') { this.value='Your Name:' }
+        if(this.value=='') { this.value='Name' }
     });
     tel.blur(function () {
-        if(this.value=='') { this.value='Telephone no.:' }
+        if(this.value=='') { this.value='Telephone' }
     });
     mail.blur(function () {
-        if(this.value=='') { this.value='E-mail:' }
+        if(this.value=='') { this.value='Email' }
     });
     message.blur(function () {
-        if(this.value=='') { this.value='Message:' }
+        if(this.value=='') { this.value='Message' }
     });
 };

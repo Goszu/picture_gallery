@@ -5,6 +5,7 @@ body {
     font-family: arial, sans-serif;
     background: #000;
     padding: 20px;
+    color: #333;
 }
 
 h1 {
@@ -23,7 +24,7 @@ a, #numbers span {
 
 a:hover, #numbers span:hover {
     color: #131313;
-    background-color: #fff7a5;
+    background-color: #fff;
     border-color: #f55b2c;
     outline: none;
 }
@@ -116,8 +117,8 @@ a:hover, #numbers span:hover {
 }
 
 .item-text {
-    margin: 12px 60px 60px;
-    overflow: hidden;
+    margin: 0 60px 60px;
+    padding-top: 12px;
     font-size: 1.2em;
     line-height: 1.4;
     color: #333;
@@ -139,7 +140,7 @@ a:hover, #numbers span:hover {
 .slideshow {
     position:relative;
     margin: 30px 60px 10px;
-    height: 400px;
+    height: 280px;
     overflow: hidden;
 }
 
@@ -190,15 +191,19 @@ a:hover, #numbers span:hover {
 }
 
 /* contact form */
+#form {
+    margin-left: -4px;
+}
+
 #form #message {
-    width: 405px;
+    width: 410px;
     height: 120px;
 }
 #form input, #form textarea  {
     font-size: 11px;
     color: #333;
     border: 0px none;
-    background: #e5e5e5;
+    background: #fff;
     margin-bottom: 10px;
     padding: 4px;
 

@@ -235,6 +235,7 @@ function boxmania(selector) {
 
         // get images into container
         $('#' + itemId + ' #inner .item-text').before('<div class="slideshow"></div>');
+        $('.slideshow').css('opacity', '0').animate({opacity: 1.0}, 2000);
         $('#' + itemId + ' .item-text img').each(function () {
             $(this).appendTo('#' + itemId + ' .slideshow');
         });
