@@ -9,6 +9,6 @@
 </head>
 <body>
 <div id="header">
-    <a id="preview" href="../index.php" target="_blank">Preview</a>
+    <a id="preview" href="../" target="_blank">Preview</a>
     <h1>Portfolio Admin</h1>
 </div>

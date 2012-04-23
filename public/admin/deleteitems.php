@@ -6,7 +6,7 @@ if (isset($_POST['submit'])) {
     foreach($_POST['iid'] as $itemId){
 
         $item = Item::find_by_id($itemId);
-        $item->destroy();
+        $item->delete();
     }
     redirect_to('listitems.php');
 };

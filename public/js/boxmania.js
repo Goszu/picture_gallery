@@ -19,7 +19,6 @@ function boxmania(selector) {
     }
 
     function getStateBack() {
-        var bigBlockStyle = $('.big-block').attr('style');
         if (api.slideshow) {api.slideshow.removeAll()}
         $('.big-block .name').insertAfter('.big-block .image-container');
         $('.big-block div.image-container').show();
@@ -31,12 +30,10 @@ function boxmania(selector) {
                 $(this).insertAfter('#bl-' + ($(this).data("no") - 1));
             }
         });
-        $('.item-text').remove();
-        $('#header').remove();
+        //$('.item-text').remove();
+        $('#inner').remove();
 
-        bigBlockStyle = bigBlockStyle.substr(bigBlockStyle.search('border'), 30);
-
-        $('.big-block').attr('style', bigBlockStyle).removeClass('big-block').addClass('block');
+        $('.big-block').removeClass('big-block').addClass('block').removeAttr('style');
     }
 
     function checkClickedCol() {
@@ -74,7 +71,8 @@ function boxmania(selector) {
             clickedCol = checkClickedCol(),
             expandedHeightInBoxesNo = Math.ceil(($(expandedBox).height() + (boxBorder * 2)) / boxHeight);
 
-        $(expandedBox).height(((expandedHeightInBoxesNo * boxHeight) - 10) - (boxBorder * 2));
+        //$(expandedBox).height(((expandedHeightInBoxesNo * boxHeight) - 10) - (boxBorder * 2));
+        $(expandedBox).find('#inner').height(((expandedHeightInBoxesNo * boxHeight) - 10) - (boxBorder * 2));
 
         if (clickedCol === 1) {return;}
 
@@ -120,8 +118,10 @@ function boxmania(selector) {
     }
 
     function addExpandedMarkup(target) {
-        $(target).prepend('<div id="header"><img src="images/close.png" id="close"/></div>');
+        $(target).prepend('<div id="inner"><div id="header"><img src="images/close.png" id="close"/></div></div>');
         $(target).find('.name').appendTo('#header');
+        $(target).find('.item-text').appendTo('#inner');
+        if ($(target).hasClass('slide')) {api.slideshow = slideshow($(target).attr('id'));}
     }
 
     function getItemText(target, itemNo) {
@@ -131,15 +131,21 @@ function boxmania(selector) {
             type: "POST",
             data: {item_id : $(target).data('id')},
             success: function(html) {
-
-                //TODO Test form insertion and refactor
-
                 function goOn(html_content, formPresent) {
+                    var targetObj = $(target);
                     $('#loader').remove();
-                    $(target).css('background-color', '#fff').find('div.image-container').fadeTo(0, 1);
-                    $(target).find('div.image-container').hide();
-                    $(target).append('<div class="item-text">' + html_content + '</div>');
-                    if ($(target).hasClass('slide')) {api.slideshow = slideshow(itemNo)}
+
+                    if (targetObj.data('bg-col')) {
+                        targetObj.css('background-color', targetObj.data('bg-col'));
+                    } else {
+                        targetObj.css('background-color', '#fff');
+                    }
+
+
+
+                    targetObj.find('div.image-container').fadeTo(0, 1).hide();
+                    targetObj.append('<div class="item-text">' + html_content + '</div>');
+                    //if (targetObj.hasClass('slide')) {api.slideshow = slideshow(itemNo)}
                     for( var i = 0; i < args.length; i++ ) {
                         args[i](target);
                     }
@@ -194,7 +200,7 @@ function boxmania(selector) {
     function slideshow(itemId) {
         var autoplayInterval,
             i = 1,
-            length = $('#bl-' + itemId + ' .item-text img').length,
+            length = $('#' + itemId + ' .item-text img').length,
             nextImg,
             current,
             frozen = false,
@@ -228,12 +234,12 @@ function boxmania(selector) {
             };
 
         // get images into container
-        $('#bl-' + itemId + ' .item-text').before('<div class="slideshow"></div>');
-        $('#bl-' + itemId + ' .item-text img').each(function () {
-            $(this).appendTo('#bl-' + itemId + ' .slideshow');
+        $('#' + itemId + ' #inner .item-text').before('<div class="slideshow"></div>');
+        $('#' + itemId + ' .item-text img').each(function () {
+            $(this).appendTo('#' + itemId + ' .slideshow');
         });
 
-        $('#bl-' + itemId + ' .item-text img:last').addClass('current');
+        $('#' + itemId + ' .item-text img:last').addClass('current');
 
         //create navigation
         $('.slideshow').after('<div id="numbers"></div>');
