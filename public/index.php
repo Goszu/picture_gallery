@@ -24,11 +24,14 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/custom.js"></script>
 <script type="text/javascript" src="js/boxmania.js"></script>
+<script type="text/javascript" src="js/cufon-yui.js"></script>
+<script type="text/javascript" src="js/Swis721_Lt_BT_400.font.js"></script>
 <script type="text/javascript">
 // <[CDATA[
     $(function () {
         boxes = boxmania('#pane');
     });
+    Cufon.replace('#company');
 // ]]>
 </script>
 

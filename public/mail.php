@@ -30,15 +30,15 @@ $headers .= 'Reply-To: <'.$mail.'>'.$eol;
 /* PHP form validation: the script checks that the Email field contains a valid email address and the Subject field isn't empty. preg_match performs a regular expression match. It's a very powerful PHP function to validate form fields and other strings - see PHP manual for details. */
 
 if (!preg_match("/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/", $mail)) {
-	echo "<h4 style='text-align: center'>Wrong e-mail address. Try again.</h4>";
+	echo "Wrong e-mail address. Try again.";
 } 
 														
 /* Sends the mail and outputs the "Thank you" string if the mail is successfully sent, or the error string otherwise. */
 
 elseif (mail($email,$subject,$message, $headers)) {
-	echo "<h4 style='text-align: center'>Thank You for your message.</h4>";
+	echo "Thank You for your message.";
 } else {
-	echo "<h4 style='text-align: center'> Failed to send the message.</h4>";
+	echo "Failed to send the message.";
 }
 															
 ?>

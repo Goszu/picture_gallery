@@ -70,7 +70,7 @@ PORTFOLIO.mailFunctionality = function () {
 
     $('#form').delegate('#send-mail', 'click', function() {
         $.post("mail.php", { imie: $("#name").val(), tel: $("#tel").val(), mail: $("#mail").val(), wiad: $("#message").val() }, function(data) {
-            $('#form').after('<div id="confirmation">' + data + '</div>');
+            $('#form-footer').append('<span id="confirmation">' + data + '</span>');
             setTimeout(function () {
                 $('#confirmation').fadeOut('fast', function () {
                     $(this).remove();

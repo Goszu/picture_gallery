@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-size: 62.5%;
-    font-family: arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: #000;
     padding: 20px;
     color: #333;
@@ -11,7 +11,6 @@ body {
 h1 {
     color: #fff;
     padding-bottom: 20px;
-    font-family: 'Istok Web', sans-serif;
 }
 
 a, #numbers span {
@@ -74,6 +73,12 @@ a:hover, #numbers span:hover {
 
 #company {
     float: left;
+    font-size: 3.8em;
+    margin: 2px 0 8px 0;
+}
+
+#company span {
+    color: #4a4a4a;
 }
 
 #social {
@@ -112,7 +117,6 @@ a:hover, #numbers span:hover {
 .name {
     padding: 0 20px;
     font-size: 1.2em;
-    font-family: 'Istok Web',sans-serif;
     color: #333;
 }
 
@@ -127,7 +131,6 @@ a:hover, #numbers span:hover {
 #header .name {
     padding: 60px 60px 0;
     font-size: 1.6em;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 #close {
@@ -173,9 +176,11 @@ a:hover, #numbers span:hover {
 #footer {
     color: #fff;
     float: right;
-    padding-top: 20px;
+    padding: 20px 0;
     width: 220px;
     text-align: right;
+    color: #666;
+    font-size: 1.1em;
 }
 
 /* debuger window */
@@ -198,6 +203,7 @@ a:hover, #numbers span:hover {
 #form #message {
     width: 410px;
     height: 120px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 #form input, #form textarea  {
     font-size: 11px;
@@ -210,4 +216,9 @@ a:hover, #numbers span:hover {
 }
 #form a {
     margin-right: 4px;
+}
+
+#confirmation {
+    float: right;
+    padding-right: 6px;
 }

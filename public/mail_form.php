@@ -11,7 +11,7 @@
     <div>
         <textarea name="message" id="message">Message</textarea>
     </div>
-    <div>
+    <div id="form-footer">
         <a href="#" class="link" id="reset-form">Reset</a>
         <a href="#" class="link" id="send-mail">Send</a>
     </div>
