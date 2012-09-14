@@ -63,12 +63,13 @@ PORTFOLIO.sortItems = function () {
 };
 
 PORTFOLIO.mailFunctionality = function () {
-    var name = $('#name'),
+    var form = $('#form'),
+        name = $('#name'),
         tel = $('#tel'),
         mail = $('#mail'),
         message = $('#message');
 
-    $('#form').delegate('#send-mail', 'click', function() {
+    form.delegate('#send-mail', 'click', function() {
         $.post("mail.php", { imie: $("#name").val(), tel: $("#tel").val(), mail: $("#mail").val(), wiad: $("#message").val() }, function(data) {
             $('#form-footer').append('<span id="confirmation">' + data + '</span>');
             setTimeout(function () {
@@ -79,8 +80,9 @@ PORTFOLIO.mailFunctionality = function () {
         });
         return false;
     });
-    $('#form').delegate('#reset-form', 'click', function() {
+    form.delegate('#reset-form', 'click', function() {
         document.getElementById('form').reset();
+        return false;
     });
     name.focus(function () {
         if (this.value =='Name')  { this.value='' }

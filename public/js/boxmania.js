@@ -200,7 +200,12 @@ function boxmania(selector) {
     function slideshow(itemId) {
         var autoplayInterval,
             i = 1,
-            length = $('#' + itemId + ' .item-text img').length,
+            imagesArray = $('#' + itemId + ' .item-text img'),
+            imgCount = imagesArray.length,
+            slideshow,
+            numbers,
+            imgLoaded = 0,
+            interv,
             nextImg,
             current,
             frozen = false,
@@ -217,6 +222,10 @@ function boxmania(selector) {
                         nextImg =  current.next('img').length ? current.next('img') : $('.slideshow img:first');
                     }
                     current.addClass('last-current');
+                    numbers.find('span.active').removeClass('active');
+                    if (nextImg.index() !== -1) {
+                        numbers.find('span:nth-child(' + (nextImg.index() + 1) + ')').addClass('active');
+                    }
                     nextImg.css({opacity: 0.0}).addClass('current').animate({opacity: 1.0}, 500, function() {
                         current.removeClass('current last-current');
                         frozen = false;
@@ -235,21 +244,33 @@ function boxmania(selector) {
 
         // get images into container
         $('#' + itemId + ' #inner .item-text').before('<div class="slideshow"></div>');
-        $('.slideshow').css('opacity', '0').animate({opacity: 1.0}, 2000);
-        $('#' + itemId + ' .item-text img').each(function () {
+        slideshow = $('.slideshow');
+        slideshow.css('opacity', '0').animate({opacity: 1.0}, 2000);
+        imagesArray.each(function () {
             $(this).appendTo('#' + itemId + ' .slideshow');
+            $(this).load(function() {
+                imgLoaded += 1;
+            });
         });
+
+        interv = setInterval(function () {
+            if (imgCount === imgLoaded) {
+                clearInterval(interv);
+                $('.slideshow').animate({opacity: 1.0}, 1000);
+            }
+        }, 200);
 
         $('#' + itemId + ' .item-text img:last').addClass('current');
 
         //create navigation
-        $('.slideshow').after('<div id="numbers"></div>');
-        for(i; i <= length; i +=1) {
-            $('#numbers').append('<span>' + i + '</span>');
+        slideshow.after('<div id="numbers"></div>');
+        numbers = $('#numbers');
+        for(i; i <= imgCount; i +=1) {
+            numbers.append('<span>' + i + '</span>');
         }
 
         //attach click handlers
-        $('#numbers').delegate('span', 'click', function () {
+        numbers.delegate('span', 'click', function () {
             slideshowApi.next($(this).text());
         });
 
@@ -269,10 +290,11 @@ function boxmania(selector) {
     }
 
     setInterval(function () {
+        var body = $('body');
         if(!checkScrollbar()) {
-            $('body').css('padding-right', '20px');
+            body.css('padding-right', '20px');
         } else {
-            $('body').css('padding-right', (20 - $.getScrollbarWidth()) + 'px');
+            body.css('padding-right', (20 - $.getScrollbarWidth()) + 'px');
         }
     }, 100);
 

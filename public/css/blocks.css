@@ -21,7 +21,7 @@ a, #numbers span {
     padding: 1px;
 }
 
-a:hover, #numbers span:hover {
+a:hover, #numbers span:hover, #numbers span.active {
     color: #131313;
     background-color: #fff;
     border-color: #f55b2c;
@@ -89,12 +89,12 @@ a:hover, #numbers span:hover {
 }
 
 #social a {
-    border: 0px none;
+    border: 0 none;
     outline: none;
 }
 
 #social a:hover {
-    border: 0px none;
+    border: 0 none;
     background: none;
 }
 
@@ -174,7 +174,6 @@ a:hover, #numbers span:hover {
 
 /* footer */
 #footer {
-    color: #fff;
     float: right;
     padding: 20px 0;
     width: 220px;
@@ -208,7 +207,7 @@ a:hover, #numbers span:hover {
 #form input, #form textarea  {
     font-size: 11px;
     color: #333;
-    border: 0px none;
+    border: 0 none;
     background: #fff;
     margin-bottom: 10px;
     padding: 4px;
