@@ -232,6 +232,7 @@ function boxmania(selector) {
                     });
                 },
                 autoplay: function () {
+                    slideshowApi.next();
                     autoplayInterval = setInterval(function () {
                         slideshowApi.next();
                     }, 3000 );
@@ -245,7 +246,7 @@ function boxmania(selector) {
         // get images into container
         $('#' + itemId + ' #inner .item-text').before('<div class="slideshow"></div>');
         slideshow = $('.slideshow');
-        slideshow.css('opacity', '0').animate({opacity: 1.0}, 2000);
+        slideshow.css('opacity', '0');
         imagesArray.each(function () {
             $(this).appendTo('#' + itemId + ' .slideshow');
             $(this).load(function() {
@@ -292,9 +293,9 @@ function boxmania(selector) {
     setInterval(function () {
         var body = $('body');
         if(!checkScrollbar()) {
-            body.css('padding-right', '20px');
+            body.css('margin-right', '20px');
         } else {
-            body.css('padding-right', (20 - $.getScrollbarWidth()) + 'px');
+            body.css('margin-right', (20 - $.getScrollbarWidth()) + 'px');
         }
     }, 100);
 
