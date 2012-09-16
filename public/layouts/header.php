@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Patterson Design Associates</title>
+    <!--[if lt IE 9]><script src="js/ html5shiv.js"></script><![endif]-->
     <link href="css/blocks.css" media="all" rel="stylesheet" type="text/css" />
     <noscript>
         <link href="css/noscript.css" media="all" rel="stylesheet" type="text/css" />
