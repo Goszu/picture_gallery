@@ -243,7 +243,7 @@ function boxmania(selector) {
             };
 
         // get images into container
-        $('#' + itemId + ' #inner .item-text').before('<div class="slideshow"></div>');
+        $('#' + itemId + ' #inner .item-text').before('<div class="slide-loader"></div><div class="slideshow"></div>');
         slideshow = $('.slideshow');
         slideshow.css('opacity', '0');
         imagesArray.each(function () {
@@ -256,7 +256,9 @@ function boxmania(selector) {
         interv = setInterval(function () {
             if (imgCount === imgLoaded) {
                 clearInterval(interv);
-                $('.slideshow').animate({opacity: 1.0}, 1000);
+                $('.slide-loader').remove();
+                slideshow.animate({opacity: 1.0}, 1000);
+                slideshowApi.autoplay();
             }
         }, 200);
 
@@ -273,8 +275,6 @@ function boxmania(selector) {
         numbers.delegate('span', 'click', function () {
             slideshowApi.next($(this).text());
         });
-
-        slideshowApi.autoplay();
 
         return slideshowApi;
     }

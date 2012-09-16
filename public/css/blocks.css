@@ -149,6 +149,12 @@ a:hover, #numbers span:hover, #numbers span.active {
     overflow: hidden;
 }
 
+.slide-loader {
+    margin: 30px 60px 10px;
+    height: 280px;
+    background: url("../images/loader.gif") no-repeat 200px 130px;
+}
+
 .slideshow img {
     position:absolute;
     top:0;
