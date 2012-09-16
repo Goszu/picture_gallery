@@ -71,7 +71,6 @@ function boxmania(selector) {
             clickedCol = checkClickedCol(),
             expandedHeightInBoxesNo = Math.ceil(($(expandedBox).height() + (boxBorder * 2)) / boxHeight);
 
-        //$(expandedBox).height(((expandedHeightInBoxesNo * boxHeight) - 10) - (boxBorder * 2));
         $(expandedBox).find('#inner').height(((expandedHeightInBoxesNo * boxHeight) - 10) - (boxBorder * 2));
 
         if (clickedCol === 1) {return;}
@@ -118,7 +117,7 @@ function boxmania(selector) {
     }
 
     function addExpandedMarkup(target) {
-        $(target).prepend('<div id="inner"><div id="header"><img src="images/close.png" id="close"/></div></div>');
+        $(target).prepend('<div id="inner"><header id="header"><img src="images/close.png" id="close"/></header></div>');
         $(target).find('.name').appendTo('#header');
         $(target).find('.item-text').appendTo('#inner');
         if ($(target).hasClass('slide')) {api.slideshow = slideshow($(target).attr('id'));}
@@ -144,7 +143,7 @@ function boxmania(selector) {
 
 
                     targetObj.find('div.image-container').fadeTo(0, 1).hide();
-                    targetObj.append('<div class="item-text">' + html_content + '</div>');
+                    targetObj.append('<article class="item-text">' + html_content + '</article>');
                     //if (targetObj.hasClass('slide')) {api.slideshow = slideshow(itemNo)}
                     for( var i = 0; i < args.length; i++ ) {
                         args[i](target);
@@ -186,7 +185,7 @@ function boxmania(selector) {
 
         boxNo = box.data('no');
 
-        $(selector + ' div').each(function () {
+        $(selector + ' section').each(function () {
             if ($(this).hasClass('big-block')) {
                 // found expanded block somewere on the page - need to collapse it
                 getStateBack();

@@ -1,0 +1,13 @@
+#pane section {
+    width: 100%;
+    height: auto;
+}
+
+.block .image-container {
+    height: auto;
+}
+
+article {
+    margin: 10px;
+    overflow-x: hidden;
+}
