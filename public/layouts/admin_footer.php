@@ -1,5 +1,5 @@
 <div id="footer">
-    Copyright <?php echo date("Y", time()); ?>
+    Copyright <?php echo date("Y", time()); ?>, MarcinGosz
 </div>
 </body>
 </html>

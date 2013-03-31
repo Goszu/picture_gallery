@@ -150,7 +150,7 @@ a:hover, #numbers span:hover, #numbers span.active {
 }
 
 .slide-loader {
-    margin: 30px 60px 10px;
+    margin: 30px 60px -310px;
     height: 280px;
     background: url("../images/loader.gif") no-repeat 200px 130px;
 }
