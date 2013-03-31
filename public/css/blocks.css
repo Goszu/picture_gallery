@@ -239,3 +239,77 @@ a:hover, #numbers span:hover, #numbers span.active {
 #reset-form {
     padding-left: 4px;
 }
+
+/* mobile phones */
+@media (max-width: 498px) {
+
+    body {
+        margin: 0 !important;
+    }
+
+    #page-header {
+        padding: 10px;
+    }
+
+    #company {
+        float: none;
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    #social {
+        float: none !important;
+        margin: 0 auto 10px;
+        padding-top: 0;
+    }
+
+    #pane {
+        min-width: 230px;
+        width: 230px;
+        margin: 0 auto;
+    }
+
+    .big-block {
+        padding: 10px;
+        width: 200px !important;
+        min-height: 0 !important;
+    }
+
+    .item-text {
+        margin: 10px 10px 0 10px;
+    }
+
+    .item-text img, .slideshow img {
+        width: 180px !important;
+        height: auto !important;
+    }
+
+    #header .name {
+        padding: 10px;
+    }
+
+    #inner {
+        height: auto !important;
+    }
+
+    #confirmation {
+        padding: 10px 0 0 0;
+    }
+
+    #close {
+        margin: -5px;
+    }
+
+    .slideshow {
+        height: 120px;
+        overflow: hidden;
+        margin: 10px;
+    }
+
+    #footer {
+        float: none !important;
+        padding: 0 !important;
+        width: auto;
+        text-align: center;
+    }
+}
