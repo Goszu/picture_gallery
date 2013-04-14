@@ -11,7 +11,7 @@ if (strtoupper(substr(PHP_OS,0,3)=='WIN')) {
 }
 
 /* All form fields are automatically passed to the PHP script through the array $HTTP_POST_VARS. */
-$email = "gerry@pattersondesignassociates.co.uk";
+$email = "marcingosz@gmail.com";
 $mail = $_POST['mail'];
 $subject = "e-mail from website";
 $imie = $_POST['imie'];

@@ -4,7 +4,7 @@ defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 
 // site root - needs to be configured properly
 defined('SITE_ROOT') ? null :
-    define('SITE_ROOT', $_SERVER['DOCUMENT_ROOT'].DS.'gerry');
+    define('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 define('LIB_PATH', SITE_ROOT.DS.'includes');
 

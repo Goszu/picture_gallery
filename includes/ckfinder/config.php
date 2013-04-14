@@ -32,7 +32,7 @@ function CheckAuthentication()
 	// forget to add session_start() at the top of this file.
 
     // TODO - use site Authentication (without duplicating code). For now temp solution
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."gerry".DIRECTORY_SEPARATOR."includes".DIRECTORY_SEPARATOR."initialise.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."includes".DIRECTORY_SEPARATOR."initialise.php");
 
     if (!$session->is_logged_in()) {
         return false;
@@ -70,7 +70,7 @@ Examples:
 ATTENTION: The trailing slash is required.
 */
 
-$baseUrl = DIRECTORY_SEPARATOR."gerry".DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR.'uploaded'.DIRECTORY_SEPARATOR;
+$baseUrl = DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR.'uploaded'.DIRECTORY_SEPARATOR;
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the

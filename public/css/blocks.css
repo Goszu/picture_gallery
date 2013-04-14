@@ -68,6 +68,7 @@ a:hover, #numbers span:hover, #numbers span.active {
 
 #page-header {
     overflow: hidden;
+    min-width: 690px;
 }
 
 #company {
@@ -83,7 +84,7 @@ a:hover, #numbers span:hover, #numbers span.active {
 #social {
     float: right;
     padding-top: 12px;
-    width: 110px;
+    width: 68px;
     text-align: right;
 }
 
@@ -139,6 +140,11 @@ a:hover, #numbers span:hover, #numbers span.active {
     float: right;
     margin: -15px;
     cursor: pointer;
+}
+
+.item-text img, .slideshow img {
+    max-width: 420px;
+    height: auto !important;
 }
 
 /* slideshow */
@@ -249,6 +255,7 @@ a:hover, #numbers span:hover, #numbers span.active {
 
     #page-header {
         padding: 10px;
+        min-width: 220px;
     }
 
     #company {
@@ -264,9 +271,13 @@ a:hover, #numbers span:hover, #numbers span.active {
     }
 
     #pane {
-        min-width: 230px;
-        width: 230px;
+        min-width: 220px;
+        width: 220px;
         margin: 0 auto;
+    }
+
+    .block {
+        margin-right: 0;
     }
 
     .big-block {

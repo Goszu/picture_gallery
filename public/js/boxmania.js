@@ -2,12 +2,13 @@ function boxmania(selector) {
     "use strict";
 
     var i,
+        colsNo,
         boxNo,
         boxWidth = 230,
         boxHeight = 205,
         expandedSize = 3,
         boxBorder = 70,
-        debug = false,
+        debug = true,
         expanded = false,
         api = {},
         windowWidth = $(window).width();
@@ -30,74 +31,68 @@ function boxmania(selector) {
                 $(this).insertAfter('#bl-' + ($(this).data("no") - 1));
             }
         });
+        //$('.item-text').remove();
         $('#inner').remove();
 
         $('.big-block').removeClass('big-block').addClass('block').removeAttr('style');
     }
 
-    function getNumOfColumns() {
-        var colsNo,
-            bodyWidth = $('body').width();
-
-        if (bodyWidth >= 690) {
-            colsNo = Math.floor(bodyWidth / boxWidth);
-        }
-        if (bodyWidth < 690) { colsNo = 3; }
-        if ($('#pane').width() === 230) { colsNo = 1; }
-
-        return colsNo;
-    }
-
     function checkClickedCol() {
-        var colIterator = 0,
-            colsNo = getNumOfColumns();
+        var colIterator = 0;
         do {
-            colIterator += 1;
+            colIterator++;
             if ((boxNo - colIterator) % colsNo === 0) {
                 return colIterator;
             }
         } while (colIterator < 8);
     }
 
-    function alignRight(selector, adjust) {
-        var adj = adjust || 0,
-            colsNo = getNumOfColumns();
+    function checkColNo() {
+        var bodyWidth = $('body').width();
 
+        if (bodyWidth >= 690) {
+            colsNo = Math.floor(bodyWidth / boxWidth);
+        }
+        if (bodyWidth < 690) { colsNo = 3; }
+        if ($('#pane').width() === 220) { colsNo = 1; }
+    }
+
+    function alignRight(selector, adjust) {
+        var adj = adjust || 0;
+
+        checkColNo();
         $(selector).css('float', 'left');
         if (colsNo > 3) {
             $(selector).css('padding-left', (((colsNo * boxWidth) - $(selector).width() - 10) + adj));
         } else if (colsNo === 3) {
             $(selector).css('padding-left', (((3 * boxWidth) - $(selector).width() - 10) + adj));
-        } else {
-            $(selector).css({'float': 'right', 'padding-left': 0});
         }
     }
 
     function fillGaps(expandedBox) {
 
+        if (colsNo === 1) { return; }
+
         var leftOffset = 0,
             topOffset = 0,
             clickedCol = checkClickedCol(),
-            expandedHeightInBoxesNo = Math.ceil(($(expandedBox).height() + (boxBorder * 2)) / boxHeight),
-            colsNo = getNumOfColumns();
-
-        if (colsNo === 1) { return; }
+            expandedHeightInBoxesNo = Math.ceil(($(expandedBox).height() + (boxBorder * 2)) / boxHeight);
 
         $(expandedBox).find('#inner').height(((expandedHeightInBoxesNo * boxHeight) - 10) - (boxBorder * 2));
 
-        if (clickedCol === 1) { return; }
+        if (clickedCol === 1) {return;}
 
         if (clickedCol === colsNo) {
-            clickedCol -= 2;
+            clickedCol -=2;
             $(expandedBox).insertBefore('.block:nth-child(' + (boxNo - 2) + ')').addClass('moved');
             boxNo -= 2;
         }
         if (clickedCol === (colsNo - 1)) {
-            clickedCol -= 1;
+            clickedCol -=1;
             $(expandedBox).insertBefore('.block:nth-child(' + (boxNo - 1) + ')').addClass('moved');
             boxNo -= 1;
         }
-        if (colsNo === expandedSize) { return; }
+        if (colsNo === expandedSize) {return;}
 
         i = 1;
         do {
@@ -106,15 +101,15 @@ function boxmania(selector) {
                 top: (topOffset * boxHeight) + (Math.ceil(boxNo / colsNo) * boxHeight),
                 left: leftOffset * boxWidth
             }).addClass('moved');
-            leftOffset += 1;
+            leftOffset++;
 
             if (i % (clickedCol - 1) === 0) {
                 leftOffset = 0;
-                topOffset += 1;
+                topOffset++;
             }
-            i += 1;
+            i++;
 
-        } while (i <= (clickedCol - 1) * (expandedHeightInBoxesNo - 1));
+        } while (i <= (clickedCol - 1) * (expandedHeightInBoxesNo -1));
     }
 
     function expand(target) {
@@ -124,26 +119,24 @@ function boxmania(selector) {
         }).removeClass('block').addClass('big-block');
     }
 
-    function goToId(target) {
-        $('html,body').animate({scrollTop: $('#' + $(target).attr('id')).offset().top - 8}, 'slow');
+    function goToId(target){
+        $('html,body').animate({scrollTop: $('#' + $(target).attr('id')).offset().top -8},'slow');
     }
 
     function addExpandedMarkup(target) {
         $(target).prepend('<div id="inner"><header id="header"><img src="images/close.png" id="close"/></header></div>');
         $(target).find('.name').appendTo('#header');
         $(target).find('.item-text').appendTo('#inner');
-        if ($(target).hasClass('slide')) { api.slideshow = slideshow($(target).attr('id')); }
+        if ($(target).hasClass('slide')) {api.slideshow = slideshow($(target).attr('id'));}
     }
 
     function getItemText(target, itemNo) {
-        var args = Array.prototype.slice.apply(arguments, [2]),
-            i;
-
+        var args = Array.prototype.slice.apply(arguments, [2]);
         $.ajax({
             url: "get_item_text.php",
             type: "POST",
             data: {item_id : $(target).data('id')},
-            success: function (html) {
+            success: function(html) {
                 function goOn(html_content, formPresent) {
                     var targetObj = $(target);
                     $('#loader').remove();
@@ -154,13 +147,14 @@ function boxmania(selector) {
                         targetObj.css('background-color', '#fff');
                     }
 
+
+
                     targetObj.find('div.image-container').fadeTo(0, 1).hide();
                     targetObj.append('<article class="item-text">' + html_content + '</article>');
-
-                    for (i = 0; i < args.length; i += 1) {
+                    //if (targetObj.hasClass('slide')) {api.slideshow = slideshow(itemNo)}
+                    for( var i = 0; i < args.length; i++ ) {
                         args[i](target);
                     }
-
                     $(selector + ' .image-container').bind('click', function () {
                         clickBoxHandler(this);
                     });
@@ -193,6 +187,8 @@ function boxmania(selector) {
 
         $(box).css('background-color', '#bbb').append('<img id="loader"  src="images/loader.gif" alt="loading" />');
         $(target).fadeTo(0, 0.4);
+
+        checkColNo();
 
         boxNo = box.data('no');
 
@@ -259,7 +255,7 @@ function boxmania(selector) {
         slideshow.css('opacity', '0');
         imagesArray.each(function () {
             $(this).appendTo('#' + itemId + ' .slideshow');
-            $(this).load(function () {
+            $(this).load(function() {
                 imgLoaded += 1;
             });
         });
@@ -278,7 +274,7 @@ function boxmania(selector) {
         //create navigation
         slideshow.after('<div id="numbers"></div>');
         numbers = $('#numbers');
-        for (i; i <= imgCount; i += 1) {
+        for(i; i <= imgCount; i +=1) {
             numbers.append('<span>' + i + '</span>');
         }
 
@@ -293,15 +289,14 @@ function boxmania(selector) {
     if (debug === true) {
         $('body').append('<div id="debug"></div>');
         setInterval(function () {
-            $('#debug').html('<p>Number of columns: ' + getNumOfColumns() + '</p>' +
-                             '<p>Body width: ' + $("body").width() + '</p>' +
-                             '<p>Scrollbar presence: ' + checkScrollbar() + '</p>');
+            $('#debug').html('<p>Number of columns: ' + colsNo + '</p>' +
+                '<p>Scrollbar presence: ' + checkScrollbar() + '</p>');
         }, 500);
     }
 
     setInterval(function () {
         var body = $('body');
-        if (!checkScrollbar()) {
+        if(!checkScrollbar()) {
             body.css('margin-right', '20px');
         } else {
             body.css('margin-right', (20 - $.getScrollbarWidth()) + 'px');
@@ -313,8 +308,8 @@ function boxmania(selector) {
         alignRight('#social', -$('#company').width());
     }, 300);
 
-    $(window).resize(function () {
-        if (expanded && windowWidth !== $(window).width()) {
+    $(window).resize(function() {
+        if(expanded && windowWidth !== $(window).width()) {
             expanded = false;
             getStateBack();
             windowWidth = $(window).width();
