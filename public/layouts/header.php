@@ -14,7 +14,7 @@
 <header id="page-header">
     <h1 id="company">Marcin<span>Gosz</span>Home</h1>
     <div id="social">
-        <a href="#"><img src="../images/in_ico.png" alt="linkedin" /></a>
-        <a href="#"><img src="../images/cs_ico.png" alt="tweeter" /></a>
+        <a href="http://www.linkedin.com/pub/marcin-gosz/39/a5a/569"><img src="../images/in_ico.png" alt="linkedIn" /></a>
+        <a href="http://www.codeschool.com/users/Goszu"><img src="../images/cs_ico.png" alt="Code school" /></a>
     </div>
 </header>
